@@ -16,12 +16,13 @@
       <div>
         <h3>Brooklyn Nine-Nine</h3>
         <p>Brooklyn Nine-Nine is a comedic TV series that follows the hilarious antics of Detective Jake Peralta and his diverse, quirky colleagues at the 99th precinct of the NYPD in Brooklyn, led by their stern but lovable Captain Holt.</p>
+        <p id="average"></p>
       </div>
     </div>
     <h2>Reviews</h2>
     <form class="form" onsubmit="handleSubmit(event)">
       <textarea name="review" placeholder="Add review" id="description"></textarea>
-      <input id="rating" placeholder="Add rating" id="rating" />
+      <input type="number" min="1" max="5" id="rating" placeholder="Add rating" id="rating" />
       <input id="post" type="submit" value="Post" />
     </form>
     <div class="reviews">

@@ -1,8 +1,10 @@
 function loadReviews() {
-  if (!localStorage.getItem("reviews")) localStorage.setItem("reviews", []);
+  if (!localStorage.getItem("reviews"))
+    localStorage.setItem("reviews", JSON.stringify([]));
   const reviews = JSON.parse(localStorage.getItem("reviews"));
+  calculateAverage(reviews ? reviews : []);
+
   document.getElementsByClassName("reviews")[0].innerHTML = "";
-  let index = 0;
   reviews.forEach((review, index) => {
     const description = document.createElement("p");
     description.innerText = review.description;
@@ -50,9 +52,16 @@ function removeReview(index) {
   const reviews = localStorage.getItem("reviews")
     ? JSON.parse(localStorage.getItem("reviews"))
     : [];
-  console.log(index);
   reviews.splice(index, 1);
-  console.log(reviews);
+
   localStorage.setItem("reviews", JSON.stringify(reviews));
   loadReviews();
+}
+
+function calculateAverage(reviews) {
+  let sum = 0;
+  reviews.forEach((review) => (sum += Number(review.rating)));
+  document.getElementById("average").innerText =
+    (reviews.length ? Number(sum / reviews.length).toFixed(2) : "0") + " / 5";
+  return;
 }

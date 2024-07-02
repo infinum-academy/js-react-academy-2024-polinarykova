@@ -90,3 +90,12 @@ textarea {
   background-color: rgb(75, 51, 128);
   margin-bottom: 15px;
 }
+
+#button {
+  width: 80px;
+  height: 30px;
+  padding: 3px;
+  border-radius: 15px;
+  background-color: white;
+  color: rgb(41, 28, 70);
+}

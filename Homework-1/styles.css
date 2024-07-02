@@ -76,3 +76,17 @@ input {
 textarea {
   height: 60px;
 }
+
+.reviews {
+  width: 100%;
+  height: fit-content;
+}
+
+.review {
+  height: fit-content;
+  padding: 10px;
+  padding-left: 20px;
+  border-radius: 15px;
+  background-color: rgb(75, 51, 128);
+  margin-bottom: 15px;
+}

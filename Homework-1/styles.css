@@ -1,0 +1,78 @@
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  height: 100%;
+  background-color: rgb(41, 28, 70);
+  color: white;
+}
+
+main {
+  width: 50%;
+}
+
+@media screen and (max-width: 1200px) {
+  main {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  main {
+    width: 80%;
+  }
+}
+
+img {
+  height: 300px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.show-info {
+  width: 100%;
+  height: fit-content;
+  background-color: white;
+  border-radius: 15px;
+  overflow: hidden;
+  color: rgb(41, 28, 70);
+}
+
+.show-info div {
+  padding: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form textarea,
+input {
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+#rating {
+  width: 30%;
+  height: 30px;
+}
+
+#post {
+  width: 15%;
+  height: 35px;
+  border-radius: 20px;
+  text-align: center;
+  padding: 0;
+}
+
+textarea {
+  height: 60px;
+}

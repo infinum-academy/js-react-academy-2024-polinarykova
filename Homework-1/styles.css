@@ -80,6 +80,7 @@ textarea {
 .reviews {
   width: 100%;
   height: fit-content;
+  margin-top: 20px;
 }
 
 .review {
@@ -98,4 +99,24 @@ textarea {
   border-radius: 15px;
   background-color: white;
   color: rgb(41, 28, 70);
+}
+
+.star {
+  scale: 1.3;
+  padding: 5px;
+}
+
+.rating-stars {
+  margin-bottom: 15px;
+}
+
+.rating-star {
+  scale: 1;
+  padding: 3px;
+  margin-bottom: 20px;
+}
+
+div span {
+  font-size: large;
+  padding-right: 10px;
 }

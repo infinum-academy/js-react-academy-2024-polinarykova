@@ -9,8 +9,15 @@ function loadReviews() {
     const description = document.createElement("p");
     description.innerText = review.description;
 
-    const rating = document.createElement("p");
-    rating.innerText = review.rating + "/5";
+    const rating = Number(review.rating);
+    const ratingStars = document.createElement("div");
+
+    for (let i = 0; i < 5; i++) {
+      const star = document.createElement("i");
+      star.classList.add("fas", "fa-star", "rating-star");
+      i < rating ? (star.style.color = "yellow") : (star.style.color = "white");
+      ratingStars.appendChild(star);
+    }
 
     const removeButton = document.createElement("button");
     removeButton.id = "button";
@@ -21,7 +28,7 @@ function loadReviews() {
     reviewEl.classList = ["review"];
 
     reviewEl.appendChild(description);
-    reviewEl.appendChild(rating);
+    reviewEl.appendChild(ratingStars);
     reviewEl.appendChild(removeButton);
 
     document.getElementsByClassName("reviews")[0].appendChild(reviewEl);
@@ -35,7 +42,8 @@ function handleSubmit(event) {
   document.getElementById("description").value = "";
 
   const rating = document.getElementById("rating").value;
-  document.getElementById("rating").value = "";
+  for (let i = 0; i < 5; i++)
+    document.getElementsByClassName("star")[i].style.color = "white";
 
   const newReview = { description: description, rating: rating };
 
@@ -63,5 +71,14 @@ function calculateAverage(reviews) {
   reviews.forEach((review) => (sum += Number(review.rating)));
   document.getElementById("average").innerText =
     (reviews.length ? Number(sum / reviews.length).toFixed(2) : "0") + " / 5";
-  return;
+}
+
+function handleStarClick(index) {
+  const stars = document.getElementsByClassName("star");
+  for (let i = 0; i < 5; i++) {
+    if (i <= index)
+      document.getElementsByClassName("star")[i].style.color = "yellow";
+    else document.getElementsByClassName("star")[i].style.color = "white";
+  }
+  document.getElementById("rating").value = index + 1;
 }

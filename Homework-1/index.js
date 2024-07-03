@@ -4,7 +4,9 @@ function loadReviews() {
   const reviews = JSON.parse(localStorage.getItem("reviews"));
   calculateAverage(reviews ? reviews : []);
 
-  document.getElementsByClassName("reviews")[0].innerHTML = "";
+  const reviewsElem = document.getElementsByClassName("reviews")[0];
+
+  reviewsElem.innerHTML = "";
   reviews.forEach((review, index) => {
     const description = document.createElement("p");
     description.innerText = review.description;
@@ -31,7 +33,7 @@ function loadReviews() {
     reviewEl.appendChild(ratingStars);
     reviewEl.appendChild(removeButton);
 
-    document.getElementsByClassName("reviews")[0].appendChild(reviewEl);
+    reviewsElem.appendChild(reviewEl);
   });
 }
 

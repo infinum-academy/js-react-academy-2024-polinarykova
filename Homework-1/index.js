@@ -1,7 +1,8 @@
 function loadReviews() {
-  if (!localStorage.getItem("reviews"))
-    localStorage.setItem("reviews", JSON.stringify([]));
+  if (!localStorage.getItem("reviews")) setReviews([]);
+
   const reviews = JSON.parse(localStorage.getItem("reviews"));
+
   calculateAverage(reviews ? reviews : []);
 
   const reviewsElem = document.getElementsByClassName("reviews")[0];
@@ -37,6 +38,10 @@ function loadReviews() {
   });
 }
 
+function setReviews(reviews) {
+  localStorage.setItem("reviews", JSON.stringify(reviews));
+}
+
 function handleSubmit(event) {
   event.preventDefault();
 
@@ -53,7 +58,7 @@ function handleSubmit(event) {
     ? JSON.parse(localStorage.getItem("reviews"))
     : [];
   reviews.push(newReview);
-  localStorage.setItem("reviews", JSON.stringify(reviews));
+  setReviews(reviews);
 
   loadReviews();
 }
@@ -64,7 +69,7 @@ function removeReview(index) {
     : [];
   reviews.splice(index, 1);
 
-  localStorage.setItem("reviews", JSON.stringify(reviews));
+  setReviews(reviews);
   loadReviews();
 }
 

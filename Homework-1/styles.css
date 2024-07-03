@@ -71,6 +71,7 @@ input {
   border-radius: 20px;
   text-align: center;
   padding: 0;
+  cursor: pointer;
 }
 
 textarea {
@@ -104,6 +105,11 @@ textarea {
 .star {
   scale: 1.3;
   padding: 5px;
+}
+
+.star:hover {
+  color: yellow;
+  cursor: pointer;
 }
 
 .rating-stars {

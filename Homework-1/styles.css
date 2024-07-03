@@ -105,14 +105,22 @@ textarea {
 .star {
   scale: 1.3;
   padding: 5px;
-}
-
-.star:hover {
-  color: yellow;
   cursor: pointer;
 }
 
-.rating-stars {
+.star-selected {
+  color: yellow;
+  scale: 1.3;
+  padding: 5px;
+}
+
+.star-clicked {
+  color: yellow;
+  scale: 1.3;
+  padding: 5px;
+}
+
+.stars {
   margin-bottom: 15px;
 }
 

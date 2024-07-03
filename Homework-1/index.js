@@ -49,8 +49,10 @@ function handleSubmit(event) {
   document.getElementById("description").value = "";
 
   const rating = document.getElementById("rating").value;
+  document.getElementById("rating").value = 0;
+
   for (let i = 0; i < 5; i++)
-    document.getElementsByClassName("star")[i].style.color = "white";
+    document.getElementsByClassName("star")[i].classList = "fas fa-star star";
 
   const newReview = { description: description, rating: rating };
 
@@ -83,9 +85,24 @@ function calculateAverage(reviews) {
 function handleStarClick(index) {
   const stars = document.getElementsByClassName("star");
   for (let i = 0; i < 5; i++) {
-    if (i <= index)
-      document.getElementsByClassName("star")[i].style.color = "yellow";
-    else document.getElementsByClassName("star")[i].style.color = "white";
+    if (i <= index) stars[i].classList = "fas fa-star star star-clicked";
+    else stars[i].classList = "fas fa-star star";
   }
   document.getElementById("rating").value = index + 1;
+}
+
+function handleHover(index) {
+  const stars = document.getElementsByClassName("star");
+  for (let i = 0; i < 5; i++) {
+    if (i <= index && !stars[i].classList.contains("star-clicked"))
+      stars[i].classList = "fas fa-star star star-selected";
+  }
+}
+
+function handleHoverLeave() {
+  const stars = document.getElementsByClassName("star");
+  for (let i = 0; i < 5; i++) {
+    if (!stars[i].classList.contains("star-clicked"))
+      stars[i].classList = "fas fa-star star";
+  }
 }

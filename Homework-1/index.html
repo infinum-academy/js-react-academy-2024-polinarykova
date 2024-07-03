@@ -23,13 +23,13 @@
     <h2>Reviews</h2>
     <form class="form" onsubmit="handleSubmit(event)">
       <textarea name="review" placeholder="Add review" id="description"></textarea>
-      <div class="rating-stars">
+      <div class="stars">
         <span> Rating: </span>
-        <i class="fas fa-star star" onclick="handleStarClick(0)"></i>
-        <i class="fas fa-star star" onclick="handleStarClick(1)"></i>
-        <i class="fas fa-star star" onclick="handleStarClick(2)"></i>
-        <i class="fas fa-star star" onclick="handleStarClick(3)"></i>
-        <i class="fas fa-star star" onclick="handleStarClick(4)"></i>
+        <i class="fas fa-star star" onclick="handleStarClick(0)" onmouseover="handleHover(0)" onmouseout="handleHoverLeave()"></i>
+        <i class="fas fa-star star" onclick="handleStarClick(1)" onmouseover="handleHover(1)" onmouseout="handleHoverLeave()"></i>
+        <i class="fas fa-star star" onclick="handleStarClick(2)" onmouseover="handleHover(2)" onmouseout="handleHoverLeave()"></i>
+        <i class="fas fa-star star" onclick="handleStarClick(3)" onmouseover="handleHover(3)" onmouseout="handleHoverLeave()"></i>
+        <i class="fas fa-star star" onclick="handleStarClick(4)" onmouseover="handleHover(4)" onmouseout="handleHoverLeave()"></i>
       </div>
       <input type="hidden" id="rating" value="" />
       <input id="post" type="submit" value="Post" />

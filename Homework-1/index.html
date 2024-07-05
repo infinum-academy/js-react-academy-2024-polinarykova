@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TV shows APP</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body onload="loadReviews()">
+  <main>
+    <h2>TV shows APP</h2>
+    <div class="show-info">
+      <img src="./assets/brooklyn99.jpg" />
+      <div>
+        <h3>Brooklyn Nine-Nine</h3>
+        <p>Brooklyn Nine-Nine is a comedic TV series that follows the hilarious antics of Detective Jake Peralta and his diverse, quirky colleagues at the 99th precinct of the NYPD in Brooklyn, led by their stern but lovable Captain Holt.</p>
+        <p id="average"></p>
+      </div>
+    </div>
+    <h2>Reviews</h2>
+    <form class="form" onsubmit="handleSubmit(event)">
+      <textarea name="review" placeholder="Add review" id="description"></textarea>
+      <div class="stars">
+        <span> Rating: </span>
+        <i class="fas fa-star star" onclick="handleStarClick(0)" onmouseover="handleHover(0)" onmouseout="handleHoverLeave()"></i>
+        <i class="fas fa-star star" onclick="handleStarClick(1)" onmouseover="handleHover(1)" onmouseout="handleHoverLeave()"></i>
+        <i class="fas fa-star star" onclick="handleStarClick(2)" onmouseover="handleHover(2)" onmouseout="handleHoverLeave()"></i>
+        <i class="fas fa-star star" onclick="handleStarClick(3)" onmouseover="handleHover(3)" onmouseout="handleHoverLeave()"></i>
+        <i class="fas fa-star star" onclick="handleStarClick(4)" onmouseover="handleHover(4)" onmouseout="handleHoverLeave()"></i>
+      </div>
+      <input type="hidden" id="rating" value="" />
+      <input id="post" type="submit" value="Post" />
+    </form>
+    <div class="reviews">
+    </div>
+  </main>
+  <script src="index.js"></script>
+</body>
+
+</html>

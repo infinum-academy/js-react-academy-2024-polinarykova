@@ -1,6 +1,6 @@
 import { IReview } from "@/typings/review";
 import { Flex, Text, Image } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
+import { DeleteIcon, StarIcon } from "@chakra-ui/icons";
 
 interface IReviewProps {
   review: IReview;
@@ -20,13 +20,27 @@ export default function ({ review, onDelete }: IReviewProps) {
       >
         <Flex gap={30}>
           <Image
-            src="assets/avatar.png"
+            src={review.avatar_url}
+            fallbackSrc="assets/avatar_default.png"
             borderRadius="full"
-            boxSize={50}
+            boxSize={65}
           ></Image>
           <Flex marginY="auto" flexDirection="column">
             <Text>{review.email}</Text>
-            <Text>{review.rating} / 5</Text>
+            <Flex flexDirection="row" gap={1}>
+              <Text marginY={3}>{review.rating} / 5</Text>
+              {[...Array(5)].map((_, index) => {
+                return (
+                  <StarIcon
+                    boxSize="20px"
+                    color={review.rating > index ? "gold" : "white"}
+                    marginY={3}
+                    marginLeft={2}
+                    key={index}
+                  ></StarIcon>
+                );
+              })}
+            </Flex>
           </Flex>
           <DeleteIcon
             onClick={() => {
@@ -38,7 +52,7 @@ export default function ({ review, onDelete }: IReviewProps) {
             cursor="pointer"
           ></DeleteIcon>
         </Flex>
-        <Text marginX={20} marginTop={5}>
+        <Text marginX={95} marginTop={5}>
           {review.comment}
         </Text>
       </Flex>

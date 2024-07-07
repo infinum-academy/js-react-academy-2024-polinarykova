@@ -20,6 +20,7 @@ export default function () {
   useEffect(() => {
     const loadedList = loadFromLocalStorage();
     setReviewList(loadedList);
+    setAverageRating(calculateAverage(loadedList));
   }, []);
 
   function loadFromLocalStorage() {

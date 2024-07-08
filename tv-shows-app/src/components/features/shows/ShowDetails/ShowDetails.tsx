@@ -1,4 +1,4 @@
-import { IShow } from "../../../typings/show";
+import { IShow } from "../../../../typings/show";
 import { Image } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 import { Flex } from "@chakra-ui/react";

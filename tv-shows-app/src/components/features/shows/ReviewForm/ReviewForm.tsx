@@ -1,6 +1,6 @@
 import { IReview } from "@/typings/review";
 import { Button, Input, Textarea, Text } from "@chakra-ui/react";
-import RatingStars from "../review/RatingStars";
+import RatingStars from "../../review/RatingStars/RatingStars";
 import { useState } from "react";
 
 interface IReviewFormProps {

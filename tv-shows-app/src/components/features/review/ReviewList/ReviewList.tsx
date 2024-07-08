@@ -1,6 +1,6 @@
 import { IReview, IReviewList } from "@/typings/review";
 import { Flex } from "@chakra-ui/react";
-import ReviewItem from "./ReviewItem";
+import ReviewItem from "../ReviewItem/ReviewItem";
 
 interface IReviewListProps {
   reviewList: IReviewList;

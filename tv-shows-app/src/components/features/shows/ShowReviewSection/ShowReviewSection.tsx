@@ -1,6 +1,6 @@
-import ReviewForm from "./ReviewForm";
+import ReviewForm from "../ReviewForm/ReviewForm";
 import { Heading } from "@chakra-ui/react";
-import ReviewList from "../review/ReviewList";
+import ReviewList from "../../review/ReviewList/ReviewList";
 import { IReview, IReviewList } from "@/typings/review";
 
 interface IShowReviewSectionProps {

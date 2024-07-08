@@ -10,7 +10,11 @@ interface IStarRatingProps {
   };
 }
 
-export default function ({ label, onChange, value }: IStarRatingProps) {
+export default function RatingStars({
+  label,
+  onChange,
+  value,
+}: IStarRatingProps) {
   return (
     <Flex flexDirection="row" gap={2}>
       <Text color="white" fontSize={20} marginRight={2}>

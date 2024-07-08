@@ -7,7 +7,7 @@ interface IReviewProps {
   onDelete: (review: IReview) => void;
 }
 
-export default function ({ review, onDelete }: IReviewProps) {
+export default function ReviewItem({ review, onDelete }: IReviewProps) {
   return (
     <>
       <Flex

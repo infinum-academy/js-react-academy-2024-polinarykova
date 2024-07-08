@@ -4,7 +4,7 @@ import ShowReviewSection from "./ShowReviewSection";
 import { IReview, IReviewList } from "@/typings/review";
 import { useState, useEffect } from "react";
 
-export default function () {
+export default function ShowContainer() {
   const title = "Brooklyn Nine-Nine";
   const description =
     "Brooklyn Nine-Nine is a comedic TV series that follows the hilarious antics of Detective Jake Peralta and his diverse, quirky colleagues at the 99th precinct of the NYPD in Brooklyn, led by their stern but lovable Captain Holt.";

@@ -9,7 +9,7 @@ interface IShowReviewSectionProps {
   deleteShowReview: (review: IReview) => void;
 }
 
-export default function ({
+export default function ShowReviewSection({
   reviewList,
   addShowReview,
   deleteShowReview,

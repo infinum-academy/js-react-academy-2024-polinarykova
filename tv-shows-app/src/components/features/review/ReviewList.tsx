@@ -7,7 +7,10 @@ interface IReviewListProps {
   onDeleteReview: (review: IReview) => void;
 }
 
-export default function ({ reviewList, onDeleteReview }: IReviewListProps) {
+export default function reviewList({
+  reviewList,
+  onDeleteReview,
+}: IReviewListProps) {
   return (
     <>
       <Flex marginY={10} gap={3} direction="column">

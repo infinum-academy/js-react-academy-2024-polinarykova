@@ -65,31 +65,29 @@ export default function () {
   }
 
   return (
-    <>
+    <Flex
+      bg="purple.900"
+      minHeight="100vh"
+      height="fit-content"
+      flexDirection="column"
+      alignItems="center"
+    >
       <Flex
-        bg="purple.900"
-        minHeight="100vh"
-        height="fit-content"
+        width={{ base: "90vw", md: "75vw", lg: "60vw" }}
         flexDirection="column"
-        alignItems="center"
       >
-        <Flex
-          width={{ base: "90vw", md: "75vw", lg: "60vw" }}
-          flexDirection="column"
-        >
-          <ShowDetails
-            title={title}
-            description={description}
-            averageRating={averageRating}
-            imageUrl={imageUrl}
-          />
-          <ShowReviewSection
-            reviewList={reviewList}
-            addShowReview={addShowReview}
-            deleteShowReview={deleteShowReview}
-          />
-        </Flex>
+        <ShowDetails
+          title={title}
+          description={description}
+          averageRating={averageRating}
+          imageUrl={imageUrl}
+        />
+        <ShowReviewSection
+          reviewList={reviewList}
+          addShowReview={addShowReview}
+          deleteShowReview={deleteShowReview}
+        />
       </Flex>
-    </>
+    </Flex>
   );
 }

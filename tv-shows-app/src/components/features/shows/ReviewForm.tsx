@@ -54,7 +54,7 @@ export default function ReviewForm({ onAdd }: IReviewFormProps) {
         label="Rating: "
         onChange={onChange}
         value={{ selected: selectedStars, hovered: hoveredStars }}
-      ></RatingStars>
+      />
       <Button
         height={50}
         borderRadius={30}

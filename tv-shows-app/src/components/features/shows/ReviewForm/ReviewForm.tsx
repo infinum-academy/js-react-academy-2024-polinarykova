@@ -13,13 +13,20 @@ export default function ReviewForm({ onAdd }: IReviewFormProps) {
 
   const [selectedStars, setSelectedStars] = useState(0);
   const [hoveredStars, setHoveredStars] = useState(0);
+  const [error, setError] = useState("");
 
   function onClickHandler() {
     const commentEl = document.getElementById("comment") as HTMLInputElement;
     const comment = commentEl.value;
-    commentEl.value = "";
 
-    if (selectedStars) {
+    if (comment == "" && !selectedStars) {
+      setError("Enter a comment and add a rating to post your review");
+      return;
+    } else if (comment == "") {
+      setError("Enter a comment to post your review");
+    } else if (!selectedStars) {
+      setError("Add a rating to post your review");
+    } else {
       const newReview: IReview = {
         email: user_email,
         avatar_url: user_avatar_url,
@@ -28,6 +35,8 @@ export default function ReviewForm({ onAdd }: IReviewFormProps) {
       };
       onAdd(newReview);
       setSelectedStars(0);
+      setError("");
+      commentEl.value = "";
     }
   }
 
@@ -55,6 +64,9 @@ export default function ReviewForm({ onAdd }: IReviewFormProps) {
         onChange={onChange}
         value={{ selected: selectedStars, hovered: hoveredStars }}
       />
+      <Text color="red.500" marginTop={3} fontSize="large">
+        {error}
+      </Text>
       <Button
         height={50}
         borderRadius={30}

@@ -10,6 +10,7 @@ export default function ShowDetails({
   averageRating,
   imageUrl,
 }: IShow) {
+  console.log(averageRating);
   return (
     <Flex
       flexDirection="column"

@@ -15,12 +15,11 @@ export default function ShowContainer() {
   };
 
   const [reviewList, setReviewList] = useState(mockReviewList);
-  const [averageRating, setAverageRating] = useState(0);
+  let averageRating = calculateAverage(reviewList);
 
   useEffect(() => {
     const loadedList = loadFromLocalStorage();
     setReviewList(loadedList);
-    setAverageRating(calculateAverage(loadedList));
   }, []);
 
   function loadFromLocalStorage() {
@@ -40,7 +39,6 @@ export default function ShowContainer() {
       reviews: [...reviewList.reviews, review],
     };
     setReviewList(newList);
-    setAverageRating(calculateAverage(newList));
     saveToLocalStorage(newList);
   }
 
@@ -49,7 +47,6 @@ export default function ShowContainer() {
       reviews: reviewList.reviews.filter((review) => review != reviewToRemove),
     };
     setReviewList(newList);
-    setAverageRating(calculateAverage(newList));
     saveToLocalStorage(newList);
   }
 

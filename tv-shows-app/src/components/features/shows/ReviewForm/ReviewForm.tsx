@@ -1,6 +1,6 @@
 import { IReview } from "@/typings/review";
 import { Button, Input, Textarea, Text } from "@chakra-ui/react";
-import RatingStars from "../../review/RatingStars/RatingStars";
+import RatingStars from "../../../shared/RatingStars/RatingStars";
 import { useState } from "react";
 
 interface IReviewFormProps {
@@ -13,12 +13,10 @@ export default function ReviewForm({ onAdd }: IReviewFormProps) {
 
   const [selectedStars, setSelectedStars] = useState(0);
   const [hoveredStars, setHoveredStars] = useState(0);
+  const [comment, setComment] = useState("");
   const [error, setError] = useState("");
 
   function onClickHandler() {
-    const commentEl = document.getElementById("comment") as HTMLInputElement;
-    const comment = commentEl.value;
-
     if (comment == "" && !selectedStars) {
       setError("Enter a comment and add a rating to post your review");
       return;
@@ -36,8 +34,17 @@ export default function ReviewForm({ onAdd }: IReviewFormProps) {
       onAdd(newReview);
       setSelectedStars(0);
       setError("");
+      setComment("");
+      const commentEl = document.getElementById("comment") as HTMLInputElement;
       commentEl.value = "";
     }
+  }
+
+  function handleCommentChange() {
+    const commentEl = document.getElementById("comment") as HTMLInputElement;
+    const comment = commentEl.value;
+
+    setComment(comment);
   }
 
   function onChange(clicked: boolean, index: number) {
@@ -58,11 +65,13 @@ export default function ReviewForm({ onAdd }: IReviewFormProps) {
         id="comment"
         flexDirection="column"
         marginBottom={5}
+        onBlur={handleCommentChange}
       />
       <RatingStars
         label="Rating: "
         onChange={onChange}
         value={{ selected: selectedStars, hovered: hoveredStars }}
+        size="30px"
       />
       <Text color="red.500" marginTop={3} fontSize="large">
         {error}

@@ -1,6 +1,7 @@
 import { IReview } from "@/typings/review";
 import { Flex, Text, Image } from "@chakra-ui/react";
 import { DeleteIcon, StarIcon } from "@chakra-ui/icons";
+import RatingStars from "@/components/shared/RatingStars/RatingStars";
 
 interface IReviewProps {
   review: IReview;
@@ -29,17 +30,14 @@ export default function ReviewItem({ review, onDelete }: IReviewProps) {
             <Text>{review.email}</Text>
             <Flex flexDirection="row" gap={1}>
               <Text marginY={3}>{review.rating} / 5</Text>
-              {[...Array(5)].map((_, index) => {
-                return (
-                  <StarIcon
-                    boxSize="20px"
-                    color={review.rating > index ? "gold" : "white"}
-                    marginY={3}
-                    marginLeft={2}
-                    key={index}
-                  ></StarIcon>
-                );
-              })}
+              <RatingStars
+                label={""}
+                value={{
+                  selected: review.rating,
+                  hovered: 0,
+                }}
+                size="20px"
+              ></RatingStars>
             </Flex>
           </Flex>
           <DeleteIcon

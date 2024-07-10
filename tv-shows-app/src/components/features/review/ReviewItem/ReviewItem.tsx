@@ -48,6 +48,7 @@ export default function ReviewItem({ review, onDelete }: IReviewProps) {
             alignSelf="center"
             marginLeft="auto"
             cursor="pointer"
+            data-testid="delete-icon"
           ></DeleteIcon>
         </Flex>
         <Text marginX={95} marginTop={5}>

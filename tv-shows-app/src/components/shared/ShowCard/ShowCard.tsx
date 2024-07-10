@@ -33,7 +33,9 @@ export default function ShowCard({
         textColor="purple.900"
         fontWeight="500"
       >
-        <Text fontSize="x-large">{title}</Text>
+        <Text fontSize="large" fontWeight="bold">
+          {title}
+        </Text>
         <Flex flexDirection="row" alignItems="center" gap={1} fontSize="large">
           <StarIcon></StarIcon>
           <Text>{avgRating}</Text>

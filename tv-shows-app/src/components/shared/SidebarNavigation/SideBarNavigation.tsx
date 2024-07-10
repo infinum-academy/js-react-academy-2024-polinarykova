@@ -1,6 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { PiTelevisionSimple } from "react-icons/pi";
+// import { PiTelevisionSimple } from "react-icons/pi";
 
 export default function SidebarNavigation() {
   return (
@@ -17,7 +17,7 @@ export default function SidebarNavigation() {
       position="fixed"
     >
       <Flex marginLeft={-5} marginTop={-5} marginBottom={5}>
-        <PiTelevisionSimple size={25} />
+        {/* <PiTelevisionSimple size={25} /> */}
         <Text marginLeft={2}>TV SHOWS APP</Text>
       </Flex>
 

@@ -9,8 +9,8 @@ export default function ShowDetails({
   id,
   title,
   description,
-  averageRating,
-  imageUrl,
+  average_rating,
+  image_url,
 }: IShow) {
   return (
     <Flex
@@ -26,7 +26,7 @@ export default function ShowDetails({
       textColor="black"
     >
       <Image
-        src={imageUrl}
+        src={image_url}
         fallbackSrc="https://fakeimg.pl/600x400"
         height="400px"
         objectFit="cover"
@@ -37,7 +37,7 @@ export default function ShowDetails({
       </Heading>
       <Text paddingX={5}>{description}</Text>
       <Text paddingX={5} paddingBottom={5}>
-        {averageRating ? averageRating.toFixed(2) + " / 5" : "No ratings"}
+        {average_rating ? average_rating.toFixed(2) + " / 5" : "No ratings"}
       </Text>
     </Flex>
   );

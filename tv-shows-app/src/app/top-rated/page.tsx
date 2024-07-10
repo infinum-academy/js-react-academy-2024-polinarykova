@@ -1,3 +1,5 @@
+import ShowList from "@/components/shared/ShowList/ShowList";
+
 export default function TopRated() {
-  return <div>top rated</div>;
+  return <ShowList topRated={true} />;
 }

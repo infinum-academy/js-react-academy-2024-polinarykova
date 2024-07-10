@@ -1,22 +1,22 @@
-"use client";
 import { Flex } from "@chakra-ui/react";
 import ShowDetails from "../ShowDetails/ShowDetails";
 import ShowReviewSection from "../ShowReviewSection/ShowReviewSection";
 import { IReview, IReviewList } from "@/typings/review";
 import { useState, useEffect } from "react";
-import { IShow } from "@/typings/show";
+import useSWR from "swr";
+import { getShow } from "@/app/fetchers/shows";
+import { useParams } from "next/navigation";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
-interface IShowContainerProps {
-  show: IShow;
-}
+export default function ShowContainer() {
+  const { id } = useParams() as Params;
+  const {
+    data: showResponse,
+    error,
+    isValidating,
+  } = useSWR(`/api/shows/${id}`, () => getShow(id));
 
-export default function ShowContainer({ show }: IShowContainerProps) {
-  const mockReviewList: IReviewList = {
-    reviews: [],
-  };
-
-  const [reviewList, setReviewList] = useState(mockReviewList);
-  let averageRating = calculateAverage(reviewList);
+  const [reviewList, setReviewList] = useState<IReviewList>({ reviews: [] });
 
   useEffect(() => {
     const loadedList = loadFromLocalStorage();
@@ -24,43 +24,46 @@ export default function ShowContainer({ show }: IShowContainerProps) {
   }, []);
 
   function loadFromLocalStorage() {
-    const reviewListLoaded = localStorage.getItem("reviews");
+    const reviewListLoaded = localStorage.getItem("reviews" + id);
     if (!reviewListLoaded) {
-      return mockReviewList;
+      return { reviews: [] };
     }
     return JSON.parse(reviewListLoaded);
   }
 
-  function saveToLocalStorage(reviewList: IReviewList) {
-    localStorage.setItem("reviews", JSON.stringify(reviewList));
+  function saveToLocalStorage(reviewListToSave: IReviewList) {
+    localStorage.setItem("reviews" + id, JSON.stringify(reviewListToSave));
   }
 
   function addShowReview(review: IReview) {
-    const newList = {
-      reviews: [...reviewList.reviews, review],
-    };
+    const newList = { reviews: [...reviewList.reviews, review] };
     setReviewList(newList);
     saveToLocalStorage(newList);
   }
 
   function deleteShowReview(reviewToRemove: IReview) {
-    const newList: IReviewList = {
-      reviews: reviewList.reviews.filter((review) => review != reviewToRemove),
+    const newList = {
+      reviews: reviewList.reviews.filter((review) => review !== reviewToRemove),
     };
     setReviewList(newList);
     saveToLocalStorage(newList);
   }
 
-  function calculateAverage(reviewList: IReviewList) {
-    if (!reviewList.reviews.length) {
-      return 0;
-    }
-
-    let sum = 0;
-    reviewList.reviews.forEach((review) => (sum += review.rating));
-
-    return sum / reviewList.reviews.length;
+  if (isValidating) {
+    return <div>Loading...</div>;
   }
+
+  if (error) {
+    return <div>Oops, something went wrong...</div>;
+  }
+
+  const {
+    id: showId,
+    title,
+    description,
+    average_rating,
+    image_url,
+  } = showResponse ?? {};
 
   return (
     <Flex
@@ -76,11 +79,11 @@ export default function ShowContainer({ show }: IShowContainerProps) {
         flexDirection="column"
       >
         <ShowDetails
-          id={show.id}
-          title={show.title}
-          description={show.description}
-          averageRating={show.averageRating}
-          imageUrl={show.imageUrl}
+          id={showId ?? ""}
+          title={title ?? ""}
+          description={description ?? ""}
+          average_rating={average_rating ?? 0}
+          image_url={image_url ?? ""}
         />
         <ShowReviewSection
           reviewList={reviewList}

@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 
-import ShowCard from "@/components/shared/ShowCard/ShowCard";
+import ShowList from "@/components/shared/ShowList/ShowList";
 
 export default function Home() {
-  return <ShowCard />;
+  const mockList = { shows: [] };
+  return <ShowList showList={mockList}></ShowList>;
 }

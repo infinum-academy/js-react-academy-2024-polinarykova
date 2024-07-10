@@ -20,8 +20,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <Flex bg="purple.900" textColor="white">
-            <SidebarNavigation />
+          <SidebarNavigation />
+          <Flex
+            bg="purple.900"
+            minHeight="100vh"
+            textColor="white"
+            marginLeft="20vw"
+          >
             {children}
           </Flex>
         </Providers>

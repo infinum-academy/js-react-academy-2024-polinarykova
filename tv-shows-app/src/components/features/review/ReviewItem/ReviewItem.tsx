@@ -22,7 +22,7 @@ export default function ReviewItem({ review, onDelete }: IReviewProps) {
         <Flex gap={30}>
           <Image
             src={review.avatar_url}
-            fallbackSrc="assets/avatar_default.png"
+            fallbackSrc="/assets/avatar_default.png"
             borderRadius="full"
             boxSize={65}
           ></Image>

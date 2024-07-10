@@ -1,3 +1,4 @@
+"use client";
 import { IShow } from "../../../../typings/show";
 import { Image } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
@@ -5,12 +6,12 @@ import { Flex } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 
 export default function ShowDetails({
+  id,
   title,
   description,
   averageRating,
   imageUrl,
 }: IShow) {
-  console.log(averageRating);
   return (
     <Flex
       flexDirection="column"
@@ -22,6 +23,7 @@ export default function ShowDetails({
       gap={5}
       overflow="hidden"
       marginY={5}
+      textColor="black"
     >
       <Image
         src={imageUrl}

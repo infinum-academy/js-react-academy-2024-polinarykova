@@ -6,13 +6,15 @@ export default function SidebarNavigation() {
   return (
     <Flex
       bg="purple.800"
-      height="100vh"
+      minHeight="100vh"
+      height="auto"
       width="20vw"
       color="white"
       flexDirection="column"
       padding={10}
       gap={3}
       fontSize="large"
+      position="fixed"
     >
       <Flex marginLeft={-5} marginTop={-5} marginBottom={5}>
         <PiTelevisionSimple size={25} />

@@ -1,15 +1,16 @@
+"use client";
 import { Flex } from "@chakra-ui/react";
 import ShowDetails from "../ShowDetails/ShowDetails";
 import ShowReviewSection from "../ShowReviewSection/ShowReviewSection";
 import { IReview, IReviewList } from "@/typings/review";
 import { useState, useEffect } from "react";
+import { IShow } from "@/typings/show";
 
-export default function ShowContainer() {
-  const title = "Brooklyn Nine-Nine";
-  const description =
-    "Brooklyn Nine-Nine is a comedic TV series that follows the hilarious antics of Detective Jake Peralta and his diverse, quirky colleagues at the 99th precinct of the NYPD in Brooklyn, led by their stern but lovable Captain Holt.";
-  const imageUrl = "/assets/brooklyn99.jpg";
+interface IShowContainerProps {
+  show: IShow;
+}
 
+export default function ShowContainer({ show }: IShowContainerProps) {
   const mockReviewList: IReviewList = {
     reviews: [],
   };
@@ -68,16 +69,18 @@ export default function ShowContainer() {
       height="fit-content"
       flexDirection="column"
       alignItems="center"
+      width="100%"
     >
       <Flex
-        width={{ base: "90vw", md: "75vw", lg: "60vw" }}
+        width={{ base: "90%", md: "75%", lg: "60%" }}
         flexDirection="column"
       >
         <ShowDetails
-          title={title}
-          description={description}
-          averageRating={averageRating}
-          imageUrl={imageUrl}
+          id={show.id}
+          title={show.title}
+          description={show.description}
+          averageRating={show.averageRating}
+          imageUrl={show.imageUrl}
         />
         <ShowReviewSection
           reviewList={reviewList}

@@ -3,7 +3,7 @@ import { Flex } from "@chakra-ui/react";
 import ShowCard from "../ShowCard/ShowCard";
 import NextLink from "next/link";
 import useSWR from "swr";
-import { getShows } from "@/app/fetchers/shows";
+import { getShows, getTopRatedShows } from "@/app/fetchers/shows";
 
 interface IShowListProps {
   topRated: boolean;
@@ -14,7 +14,10 @@ export default function ShowList({ topRated }: IShowListProps) {
     data: showListResponse,
     error,
     isLoading,
-  } = useSWR(topRated ? "/api/shows/top-rated" : "/api/shows", getShows);
+  } = useSWR(
+    topRated ? "/api/shows/top-rated" : "/api/shows",
+    topRated ? getTopRatedShows : getShows
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;

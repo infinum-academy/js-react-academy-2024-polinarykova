@@ -1,7 +1,8 @@
 "use client";
+import React from "react";
 
-import ShowContainer from "@/components/features/shows/ShowContainer/ShowContainer";
+import ShowCard from "@/components/shared/ShowCard/ShowCard";
 
 export default function Home() {
-  return <ShowContainer></ShowContainer>;
+  return <ShowCard />;
 }

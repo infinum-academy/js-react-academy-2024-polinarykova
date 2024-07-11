@@ -33,12 +33,25 @@ export default function ShowCard({
         textColor="purple.900"
         fontWeight="500"
       >
-        <Text fontSize="large" fontWeight="bold">
-          {title}
-        </Text>
-        <Flex flexDirection="row" alignItems="center" gap={1} fontSize="large">
-          <StarIcon></StarIcon>
-          <Text>{avgRating}</Text>
+        <Flex
+          flexDirection="column"
+          justifyContent="space-evenly"
+          alignItems="start"
+          height="80px"
+        >
+          <Text fontSize="large" fontWeight="bold">
+            {title}
+          </Text>
+          <Flex
+            flexDirection="row"
+            alignItems="center"
+            gap={3}
+            fontSize="large"
+            textAlign="center"
+          >
+            <StarIcon></StarIcon>
+            <Text>{avgRating.toFixed(2)} / 5</Text>
+          </Flex>
         </Flex>
       </CardFooter>
     </Card>

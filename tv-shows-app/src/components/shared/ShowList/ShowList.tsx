@@ -16,7 +16,7 @@ export default function ShowList({ showList }: IShowListProps) {
       marginTop={5}
       data-testid="list"
     >
-      {showList?.map((show) => {
+      {showList?.map((show, index) => {
         return (
           <NextLink href={`/shows/${show.id}`}>
             <ShowCard

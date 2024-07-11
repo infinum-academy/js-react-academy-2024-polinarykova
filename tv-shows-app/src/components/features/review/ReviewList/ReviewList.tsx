@@ -12,20 +12,18 @@ export default function reviewList({
   onDeleteReview,
 }: IReviewListProps) {
   return (
-    <>
-      <Flex marginY={10} gap={3} direction="column">
-        {reviewList.reviews.map((review, index) => {
-          return (
-            <>
-              <ReviewItem
-                review={review}
-                key={index}
-                onDelete={onDeleteReview}
-              ></ReviewItem>
-            </>
-          );
-        })}
-      </Flex>
-    </>
+    <Flex marginY={10} gap={3} direction="column">
+      {reviewList.reviews.map((review, index) => {
+        return (
+          <>
+            <ReviewItem
+              review={review}
+              key={index}
+              onDelete={onDeleteReview}
+            ></ReviewItem>
+          </>
+        );
+      })}
+    </Flex>
   );
 }

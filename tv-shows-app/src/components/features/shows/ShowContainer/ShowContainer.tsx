@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Spinner, Text } from "@chakra-ui/react";
 import ShowDetails from "../ShowDetails/ShowDetails";
 import ShowReviewSection from "../ShowReviewSection/ShowReviewSection";
 import { IReview, IReviewList } from "@/typings/review";
@@ -7,6 +7,7 @@ import useSWR from "swr";
 import { getShow } from "@/app/fetchers/shows";
 import { useParams } from "next/navigation";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
+import { CiWarning } from "react-icons/ci";
 
 export default function ShowContainer() {
   const { id } = useParams() as Params;
@@ -50,11 +51,21 @@ export default function ShowContainer() {
   }
 
   if (isValidating) {
-    return <div>Loading...</div>;
+    return (
+      <Flex margin="auto">
+        <Spinner boxSize={50} />
+      </Flex>
+    );
   }
 
   if (error) {
-    return <div>Oops, something went wrong...</div>;
+    return (
+      <Flex margin="auto" justifyContent="center" alignItems="center" gap={5}>
+        {" "}
+        <CiWarning size={50} />
+        <Text letterSpacing="wide">Oops... Something went wrong</Text>
+      </Flex>
+    );
   }
 
   const {

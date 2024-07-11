@@ -21,7 +21,7 @@ describe("ShowCard", () => {
 
     render(<ShowCard title={""} imageUrl="test" avgRating={avgRating} />);
 
-    const rating = screen.getByText(avgRating);
+    const rating = screen.getByText(avgRating + " / 5");
     expect(rating).toBeInTheDocument();
   });
 });

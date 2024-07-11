@@ -70,6 +70,7 @@ export default function ReviewForm({ onAdd }: IReviewFormProps) {
         textColor="black"
       />
       <RatingStars
+        data-testid="rating"
         label="Rating: "
         onChange={onChange}
         value={{ selected: selectedStars, hovered: hoveredStars }}

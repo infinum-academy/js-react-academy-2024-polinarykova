@@ -1,6 +1,5 @@
-import ShowList from "@/components/shared/ShowList/ShowList";
-import { mockShowList } from "../../../public/mockShowLIst";
+import ShowListContainer from "@/components/shared/ShowListContainer/ShowListContainer";
 
 export default function AllShows() {
-  return <ShowList topRated={false} />;
+  return <ShowListContainer topRated={false} />;
 }

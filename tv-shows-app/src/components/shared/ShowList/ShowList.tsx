@@ -2,36 +2,21 @@
 import { Flex } from "@chakra-ui/react";
 import ShowCard from "../ShowCard/ShowCard";
 import NextLink from "next/link";
-import useSWR from "swr";
-import { getShows, getTopRatedShows } from "@/app/fetchers/shows";
+import { IShow, IShowList } from "@/typings/show";
 
 interface IShowListProps {
-  topRated: boolean;
+  showList: Array<IShow>;
 }
 
-export default function ShowList({ topRated }: IShowListProps) {
-  const {
-    data: showListResponse,
-    error,
-    isLoading,
-  } = useSWR(
-    topRated ? "/api/shows/top-rated" : "/api/shows",
-    topRated ? getTopRatedShows : getShows
-  );
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Ups something went wrong...</div>;
-  }
-
-  const fetchedList = showListResponse?.shows;
-
+export default function ShowList({ showList }: IShowListProps) {
   return (
-    <Flex flexWrap="wrap" justifyContent="center" marginTop={5}>
-      {fetchedList?.map((show) => {
+    <Flex
+      flexWrap="wrap"
+      justifyContent="center"
+      marginTop={5}
+      data-testid="list"
+    >
+      {showList?.map((show) => {
         return (
           <NextLink href={`/all-shows/${show.id}`}>
             <ShowCard

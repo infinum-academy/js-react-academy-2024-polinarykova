@@ -1,5 +1,5 @@
-import ShowList from "@/components/shared/ShowList/ShowList";
+import ShowListContainer from "@/components/shared/ShowListContainer/ShowListContainer";
 
 export default function TopRated() {
-  return <ShowList topRated={true} />;
+  return <ShowListContainer topRated={true} />;
 }

@@ -1,6 +1,6 @@
 import { IReview } from "@/typings/review";
 import { Flex, Text, Image } from "@chakra-ui/react";
-import { DeleteIcon, StarIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
 import RatingStars from "@/components/shared/RatingStars/RatingStars";
 
 interface IReviewProps {

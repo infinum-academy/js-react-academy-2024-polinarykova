@@ -1,15 +1,26 @@
 "use client";
 import { Flex, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PiTelevisionSimple } from "react-icons/pi";
 import { FiLogOut } from "react-icons/fi";
 import { usePathname } from "next/navigation";
+import NavigationLink from "../NavigationLink/NavigationLink";
 
 export default function SidebarNavigation() {
-  const pathname = usePathname()?.substring(1);
+  const pathname = usePathname();
 
   const [category, setCategory] = useState(pathname);
+
+  const links = [
+    { name: "All shows", path: "/shows" },
+    { name: "Top rated", path: "/top-rated" },
+    { name: "My profile", path: "/my-profile" },
+  ];
+
+  function handleCategoryClick(path: string) {
+    setCategory(path);
+  }
 
   return (
     <Flex
@@ -39,44 +50,17 @@ export default function SidebarNavigation() {
         </Text>
       </Flex>
 
-      <Text
-        as={NextLink}
-        href={`/shows`}
-        border={category == "shows" ? "2px solid purple.600" : "none"}
-        borderRadius={category == "shows" ? "20px" : "none"}
-        bg={category == "shows" ? "purple.600" : "none"}
-        width="fit-content"
-        letterSpacing="wide"
-        padding={2}
-        marginLeft={-2}
-        onClick={() => setCategory("shows")}
-      >
-        {">"} All shows
-      </Text>
-      <Text
-        as={NextLink}
-        href={`/top-rated`}
-        border={category == "top-rated" ? "2px solid purple.600" : "none"}
-        borderRadius={category == "top-rated" ? "20px" : "none"}
-        bg={category == "top-rated" ? "purple.600" : "none"}
-        width="fit-content"
-        letterSpacing="wide"
-        padding={2}
-        marginLeft={-2}
-        onClick={() => setCategory("top-rated")}
-      >
-        {">"} Top rated
-      </Text>
-      <Text
-        as={NextLink}
-        href={`/my-profile`}
-        onClick={() => setCategory("")}
-        letterSpacing="wide"
-        padding={2}
-        marginLeft={-2}
-      >
-        <span color="black">{">"}</span> My profile
-      </Text>
+      {links.map((link) => {
+        return (
+          <NavigationLink
+            name={link.name}
+            path={link.path}
+            currCategory={category || ""}
+            onLinkClick={handleCategoryClick}
+          ></NavigationLink>
+        );
+      })}
+
       <Flex
         as={NextLink}
         href={`/log-out`}

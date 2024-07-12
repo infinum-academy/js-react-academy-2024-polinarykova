@@ -4,26 +4,12 @@ import NextLink from "next/link";
 import { useEffect, useState } from "react";
 import { PiTelevisionSimple } from "react-icons/pi";
 import { FiLogOut } from "react-icons/fi";
+import { usePathname } from "next/navigation";
 
 export default function SidebarNavigation() {
-  const link = window.location.href;
-  const currentCat = link.split("/").reverse()[0];
+  const pathname = usePathname()?.substring(1);
 
-  const [category, setCategory] = useState(currentCat);
-
-  useEffect(() => {
-    const handleUrlChange = () => {
-      const link = window.location.href;
-      const newCategory = link.split("/").reverse()[0];
-      setCategory(newCategory);
-    };
-
-    window.addEventListener("popstate", handleUrlChange);
-
-    return () => {
-      window.removeEventListener("popstate", handleUrlChange);
-    };
-  }, []);
+  const [category, setCategory] = useState(pathname);
 
   return (
     <Flex
@@ -86,6 +72,8 @@ export default function SidebarNavigation() {
         href={`/my-profile`}
         onClick={() => setCategory("")}
         letterSpacing="wide"
+        padding={2}
+        marginLeft={-2}
       >
         <span color="black">{">"}</span> My profile
       </Text>

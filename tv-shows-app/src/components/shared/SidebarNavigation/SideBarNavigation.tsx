@@ -10,17 +10,11 @@ import NavigationLink from "../NavigationLink/NavigationLink";
 export default function SidebarNavigation() {
   const pathname = usePathname();
 
-  const [category, setCategory] = useState(pathname);
-
   const links = [
     { name: "All shows", path: "/shows" },
     { name: "Top rated", path: "/top-rated" },
     { name: "My profile", path: "/my-profile" },
   ];
-
-  function handleCategoryClick(path: string) {
-    setCategory(path);
-  }
 
   return (
     <Flex
@@ -55,8 +49,7 @@ export default function SidebarNavigation() {
           <NavigationLink
             name={link.name}
             path={link.path}
-            currCategory={category || ""}
-            onLinkClick={handleCategoryClick}
+            currCategory={pathname || ""}
           ></NavigationLink>
         );
       })}
@@ -69,11 +62,7 @@ export default function SidebarNavigation() {
         alignItems="center"
         gap={3}
       >
-        <Text
-          fontSize="medium"
-          letterSpacing="wide"
-          onClick={() => setCategory("")}
-        >
+        <Text fontSize="medium" letterSpacing="wide">
           Log out
         </Text>
         <FiLogOut />

@@ -5,14 +5,12 @@ interface INavigationLinkProps {
   name: string;
   path: string;
   currCategory: string;
-  onLinkClick: (path: string) => void;
 }
 
 export default function NavigationLink({
   name,
   path,
   currCategory,
-  onLinkClick,
 }: INavigationLinkProps) {
   return (
     <Text
@@ -25,7 +23,6 @@ export default function NavigationLink({
       letterSpacing="wide"
       padding={2}
       marginLeft={-2}
-      onClick={() => onLinkClick(path)}
     >
       {">"} {name}
     </Text>

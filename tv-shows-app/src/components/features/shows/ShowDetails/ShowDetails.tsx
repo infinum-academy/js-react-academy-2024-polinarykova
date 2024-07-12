@@ -1,3 +1,4 @@
+"use client";
 import { IShow } from "../../../../typings/show";
 import { Image } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
@@ -5,12 +6,12 @@ import { Flex } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 
 export default function ShowDetails({
+  id,
   title,
   description,
-  averageRating,
-  imageUrl,
+  average_rating,
+  image_url,
 }: IShow) {
-  console.log(averageRating);
   return (
     <Flex
       flexDirection="column"
@@ -22,9 +23,10 @@ export default function ShowDetails({
       gap={5}
       overflow="hidden"
       marginY={5}
+      textColor="black"
     >
       <Image
-        src={imageUrl}
+        src={image_url}
         fallbackSrc="https://fakeimg.pl/600x400"
         height="400px"
         objectFit="cover"
@@ -35,7 +37,7 @@ export default function ShowDetails({
       </Heading>
       <Text paddingX={5}>{description}</Text>
       <Text paddingX={5} paddingBottom={5}>
-        {averageRating ? averageRating.toFixed(2) + " / 5" : "No ratings"}
+        {average_rating ? average_rating.toFixed(2) + " / 5" : "No ratings"}
       </Text>
     </Flex>
   );

@@ -1,3 +1,4 @@
+"use client";
 import { IReview } from "@/typings/review";
 import { Button, Input, Textarea, Text } from "@chakra-ui/react";
 import RatingStars from "../../../shared/RatingStars/RatingStars";
@@ -66,8 +67,10 @@ export default function ReviewForm({ onAdd }: IReviewFormProps) {
         flexDirection="column"
         marginBottom={5}
         onBlur={handleCommentChange}
+        textColor="black"
       />
       <RatingStars
+        data-testid="rating"
         label="Rating: "
         onChange={onChange}
         value={{ selected: selectedStars, hovered: hoveredStars }}

@@ -1,83 +1,91 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Spinner, Text } from "@chakra-ui/react";
 import ShowDetails from "../ShowDetails/ShowDetails";
 import ShowReviewSection from "../ShowReviewSection/ShowReviewSection";
 import { IReview, IReviewList } from "@/typings/review";
 import { useState, useEffect } from "react";
+import useSWR from "swr";
+import { getShow } from "@/app/fetchers/shows";
+import { useParams } from "next/navigation";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
+import { CiWarning } from "react-icons/ci";
+import {
+  loadFromLocalStorage,
+  saveToLocalStorage,
+} from "./ShowContainer.utils";
 
 export default function ShowContainer() {
-  const title = "Brooklyn Nine-Nine";
-  const description =
-    "Brooklyn Nine-Nine is a comedic TV series that follows the hilarious antics of Detective Jake Peralta and his diverse, quirky colleagues at the 99th precinct of the NYPD in Brooklyn, led by their stern but lovable Captain Holt.";
-  const imageUrl = "/assets/brooklyn99.jpg";
+  const { id } = useParams() as Params;
+  const {
+    data: showResponse,
+    error,
+    isValidating,
+  } = useSWR(`/api/shows/${id}`, () => getShow(id));
 
-  const mockReviewList: IReviewList = {
-    reviews: [],
-  };
-
-  const [reviewList, setReviewList] = useState(mockReviewList);
-  let averageRating = calculateAverage(reviewList);
+  const [reviewList, setReviewList] = useState<IReviewList>({ reviews: [] });
 
   useEffect(() => {
-    const loadedList = loadFromLocalStorage();
+    const loadedList = loadFromLocalStorage(id);
     setReviewList(loadedList);
   }, []);
 
-  function loadFromLocalStorage() {
-    const reviewListLoaded = localStorage.getItem("reviews");
-    if (!reviewListLoaded) {
-      return mockReviewList;
-    }
-    return JSON.parse(reviewListLoaded);
-  }
-
-  function saveToLocalStorage(reviewList: IReviewList) {
-    localStorage.setItem("reviews", JSON.stringify(reviewList));
-  }
-
   function addShowReview(review: IReview) {
-    const newList = {
-      reviews: [...reviewList.reviews, review],
-    };
+    const newList = { reviews: [...reviewList.reviews, review] };
     setReviewList(newList);
-    saveToLocalStorage(newList);
+    saveToLocalStorage(newList, id);
   }
 
   function deleteShowReview(reviewToRemove: IReview) {
-    const newList: IReviewList = {
-      reviews: reviewList.reviews.filter((review) => review != reviewToRemove),
+    const newList = {
+      reviews: reviewList.reviews.filter((review) => review !== reviewToRemove),
     };
     setReviewList(newList);
-    saveToLocalStorage(newList);
+    saveToLocalStorage(newList, id);
   }
 
-  function calculateAverage(reviewList: IReviewList) {
-    if (!reviewList.reviews.length) {
-      return 0;
-    }
-
-    let sum = 0;
-    reviewList.reviews.forEach((review) => (sum += review.rating));
-
-    return sum / reviewList.reviews.length;
+  if (isValidating) {
+    return (
+      <Flex margin="auto">
+        <Spinner boxSize={50} />
+      </Flex>
+    );
   }
+
+  if (error) {
+    return (
+      <Flex margin="auto" justifyContent="center" alignItems="center" gap={5}>
+        {" "}
+        <CiWarning size={50} />
+        <Text letterSpacing="wide">Oops... Something went wrong</Text>
+      </Flex>
+    );
+  }
+
+  const {
+    id: showId,
+    title,
+    description,
+    average_rating,
+    image_url,
+  } = showResponse ?? {};
 
   return (
     <Flex
-      bg="purple.900"
       minHeight="100vh"
       height="fit-content"
       flexDirection="column"
       alignItems="center"
+      width="100%"
     >
       <Flex
-        width={{ base: "90vw", md: "75vw", lg: "60vw" }}
+        width={{ base: "90%", md: "75%", lg: "60%" }}
         flexDirection="column"
       >
         <ShowDetails
-          title={title}
-          description={description}
-          averageRating={averageRating}
-          imageUrl={imageUrl}
+          id={showId ?? ""}
+          title={title ?? ""}
+          description={description ?? ""}
+          average_rating={average_rating ?? 0}
+          image_url={image_url ?? ""}
         />
         <ShowReviewSection
           reviewList={reviewList}

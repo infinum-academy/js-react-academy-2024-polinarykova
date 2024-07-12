@@ -8,6 +8,10 @@ import { getShow } from "@/app/fetchers/shows";
 import { useParams } from "next/navigation";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { CiWarning } from "react-icons/ci";
+import {
+  loadFromLocalStorage,
+  saveToLocalStorage,
+} from "./ShowContainer.utils";
 
 export default function ShowContainer() {
   const { id } = useParams() as Params;
@@ -20,26 +24,14 @@ export default function ShowContainer() {
   const [reviewList, setReviewList] = useState<IReviewList>({ reviews: [] });
 
   useEffect(() => {
-    const loadedList = loadFromLocalStorage();
+    const loadedList = loadFromLocalStorage(id);
     setReviewList(loadedList);
   }, []);
-
-  function loadFromLocalStorage() {
-    const reviewListLoaded = localStorage.getItem("reviews" + id);
-    if (!reviewListLoaded) {
-      return { reviews: [] };
-    }
-    return JSON.parse(reviewListLoaded);
-  }
-
-  function saveToLocalStorage(reviewListToSave: IReviewList) {
-    localStorage.setItem("reviews" + id, JSON.stringify(reviewListToSave));
-  }
 
   function addShowReview(review: IReview) {
     const newList = { reviews: [...reviewList.reviews, review] };
     setReviewList(newList);
-    saveToLocalStorage(newList);
+    saveToLocalStorage(newList, id);
   }
 
   function deleteShowReview(reviewToRemove: IReview) {
@@ -47,7 +39,7 @@ export default function ShowContainer() {
       reviews: reviewList.reviews.filter((review) => review !== reviewToRemove),
     };
     setReviewList(newList);
-    saveToLocalStorage(newList);
+    saveToLocalStorage(newList, id);
   }
 
   if (isValidating) {
@@ -78,7 +70,6 @@ export default function ShowContainer() {
 
   return (
     <Flex
-      bg="purple.900"
       minHeight="100vh"
       height="fit-content"
       flexDirection="column"

@@ -15,13 +15,11 @@ export default function reviewList({
     <Flex marginY={10} gap={3} direction="column">
       {reviewList.reviews.map((review, index) => {
         return (
-          <>
-            <ReviewItem
-              review={review}
-              key={index}
-              onDelete={onDeleteReview}
-            ></ReviewItem>
-          </>
+          <ReviewItem
+            review={review}
+            key={index}
+            onDelete={onDeleteReview}
+          ></ReviewItem>
         );
       })}
     </Flex>

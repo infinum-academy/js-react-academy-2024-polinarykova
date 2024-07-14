@@ -3,8 +3,6 @@ import ShowDetails from "../ShowDetails/ShowDetails";
 import ShowReviewSection from "../ShowReviewSection/ShowReviewSection";
 import { IReview, IReviewList } from "@/typings/review";
 import { useState, useEffect } from "react";
-import useSWR from "swr";
-import { getShow } from "@/app/fetchers/shows";
 import { useParams } from "next/navigation";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { CiWarning } from "react-icons/ci";
@@ -12,21 +10,41 @@ import {
   loadFromLocalStorage,
   saveToLocalStorage,
 } from "./ShowContainer.utils";
+import useSWRMutation from "swr/mutation";
+import { swrKeys } from "@/app/fetchers/swrKeys";
+import { loggedMutator } from "@/app/fetchers/mutators";
+import { IShow } from "@/typings/show";
 
 export default function ShowContainer() {
   const { id } = useParams() as Params;
-  const {
-    data: showResponse,
-    error,
-    isValidating,
-  } = useSWR(`/api/shows/${id}`, () => getShow(id));
 
   const [reviewList, setReviewList] = useState<IReviewList>({ reviews: [] });
+  const [show, setShow] = useState<IShow>({
+    id: "",
+    title: "",
+    description: "",
+  });
+
+  const { trigger, isMutating, error } = useSWRMutation(
+    swrKeys.shows + `/${id}`,
+    loggedMutator,
+    {
+      onSuccess: (data) => {
+        setShow(data.show);
+      },
+    }
+  );
+
+  useEffect(() => {
+    trigger();
+  }, []);
 
   useEffect(() => {
     const loadedList = loadFromLocalStorage(id);
-    setReviewList(loadedList);
-  }, []);
+    if (loadedList) {
+      setReviewList(loadedList);
+    }
+  }, [id]);
 
   function addShowReview(review: IReview) {
     const newList = { reviews: [...reviewList.reviews, review] };
@@ -42,7 +60,7 @@ export default function ShowContainer() {
     saveToLocalStorage(newList, id);
   }
 
-  if (isValidating) {
+  if (isMutating) {
     return (
       <Flex margin="auto">
         <Spinner boxSize={50} />
@@ -53,20 +71,11 @@ export default function ShowContainer() {
   if (error) {
     return (
       <Flex margin="auto" justifyContent="center" alignItems="center" gap={5}>
-        {" "}
         <CiWarning size={50} />
         <Text letterSpacing="wide">Oops... Something went wrong</Text>
       </Flex>
     );
   }
-
-  const {
-    id: showId,
-    title,
-    description,
-    average_rating,
-    image_url,
-  } = showResponse ?? {};
 
   return (
     <Flex
@@ -81,11 +90,11 @@ export default function ShowContainer() {
         flexDirection="column"
       >
         <ShowDetails
-          id={showId ?? ""}
-          title={title ?? ""}
-          description={description ?? ""}
-          average_rating={average_rating ?? 0}
-          image_url={image_url ?? ""}
+          id={show.id ?? ""}
+          title={show.title ?? ""}
+          description={show.description ?? ""}
+          average_rating={show.average_rating ?? 0}
+          image_url={show.image_url ?? ""}
         />
         <ShowReviewSection
           reviewList={reviewList}

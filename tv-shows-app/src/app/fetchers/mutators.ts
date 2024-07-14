@@ -25,3 +25,28 @@ export async function SignInMutator(url: string, { arg }: { arg: any }) {
 
   return await response.json();
 }
+
+export async function loggedMutator(url: string, { arg }: { arg: any }) {
+  const headers = localStorage.getItem("headers");
+  const parsedHeaders = headers ? JSON.parse(headers) : {};
+
+  const init: RequestInit = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "access-token": parsedHeaders["access-token"],
+      client: parsedHeaders.client,
+      uid: parsedHeaders.uid,
+    },
+  };
+
+  const response = await fetch(url, init);
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    const errorMessage = errorData.errors || "Something went wrong";
+
+    throw new Error(errorMessage);
+  }
+  return await response.json();
+}

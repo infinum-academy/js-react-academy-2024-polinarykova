@@ -17,17 +17,16 @@ import { swrKeys } from "@/app/fetchers/swrKeys";
 import NextLink from "next/link";
 import Logo from "@/components/shared/Logo/Logo";
 
-interface IRegisterFormInputs {
+interface ILoginFormInputs {
   email: string;
   password: string;
-  password_confirmation: string;
 }
 
-export const RegisterForm = () => {
+export const LoginForm = () => {
   const [error, setError] = useState("");
-  const { register, handleSubmit } = useForm<IRegisterFormInputs>();
-  const { trigger } = useSWRMutation(swrKeys.register, SignInMutator, {
-    onSuccess: (response) => {
+  const { register, handleSubmit } = useForm<ILoginFormInputs>();
+  const { trigger } = useSWRMutation(swrKeys.sign_in, SignInMutator, {
+    onSuccess: () => {
       setError("");
       window.location.href = "/shows";
     },
@@ -35,12 +34,8 @@ export const RegisterForm = () => {
       setError(message.toString().split(":")[1]);
     },
   });
-  const onRegister = (data: IRegisterFormInputs) => {
-    if (data.password != data.password_confirmation) {
-      setError("Passwords don't match!");
-    } else {
-      trigger(data);
-    }
+  const onLogin = (data: ILoginFormInputs) => {
+    trigger(data);
   };
   return (
     <Flex
@@ -61,7 +56,7 @@ export const RegisterForm = () => {
         flexDirection="column"
         alignItems="center"
         gap={5}
-        onSubmit={handleSubmit(onRegister)}
+        onSubmit={handleSubmit(onLogin)}
       >
         <FormControl isRequired={true}>
           <FormLabel>Email</FormLabel>
@@ -76,27 +71,19 @@ export const RegisterForm = () => {
             required
           ></Input>
         </FormControl>
-        <FormControl isRequired={true}>
-          <FormLabel>Confirm Password</FormLabel>
-          <Input
-            {...register("password_confirmation")}
-            type="password"
-            required
-          ></Input>
-        </FormControl>
         {error && <Text color="red.500">{error}</Text>}
         <Button type="submit" marginTop={10}>
-          Sign Up
+          Sign In
         </Button>
         <Text>
-          Already have an account?{" "}
+          Don't have an account yet?{" "}
           <Text
             as={NextLink}
-            href={"/login"}
+            href={"/register"}
             textDecoration="underline"
             marginTop={3}
           >
-            Sign in
+            Register
           </Text>
         </Text>
       </chakra.form>

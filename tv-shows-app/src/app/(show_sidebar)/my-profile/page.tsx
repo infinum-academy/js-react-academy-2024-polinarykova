@@ -1,4 +1,12 @@
 "use client";
+
+import { AuthRedirect } from "@/components/shared/AuthRedirect/AuthRedirect";
+
 export default function MyProfile() {
-  return <div>my profile</div>;
+  return (
+    <>
+      <AuthRedirect condition={"loggedOut"} to="/login" />
+      <div>my profile</div>
+    </>
+  );
 }

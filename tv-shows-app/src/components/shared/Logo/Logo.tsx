@@ -1,7 +1,7 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { PiTelevisionSimple } from "react-icons/pi";
 
-export default function Logo({ size }: { size: string }) {
+export default function Logo({ size }: { size: "small" | "large" }) {
   return (
     <Flex flexDirection="row">
       <PiTelevisionSimple size={size == "small" ? 30 : 50} />

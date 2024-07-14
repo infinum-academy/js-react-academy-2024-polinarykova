@@ -2,11 +2,12 @@
 import { Flex, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { FiLogOut } from "react-icons/fi";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import NavigationLink from "../NavigationLink/NavigationLink";
 import Logo from "../Logo/Logo";
 
 export default function SidebarNavigation() {
+  const router = useRouter();
   const pathname = usePathname();
 
   const links = [
@@ -14,6 +15,11 @@ export default function SidebarNavigation() {
     { name: "Top rated", path: "/top-rated" },
     { name: "My profile", path: "/my-profile" },
   ];
+
+  function handleLogOut() {
+    localStorage.removeItem("headers");
+    router.push("/login");
+  }
 
   return (
     <Flex
@@ -43,15 +49,13 @@ export default function SidebarNavigation() {
         );
       })}
 
-      <Flex
-        as={NextLink}
-        href={`/log-out`}
-        marginTop="auto"
-        flexDirection="row"
-        alignItems="center"
-        gap={3}
-      >
-        <Text fontSize="medium" letterSpacing="wide">
+      <Flex marginTop="auto" flexDirection="row" alignItems="center" gap={3}>
+        <Text
+          fontSize="medium"
+          letterSpacing="wide"
+          onClick={handleLogOut}
+          cursor="pointer"
+        >
           Log out
         </Text>
         <FiLogOut />

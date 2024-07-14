@@ -1,7 +1,7 @@
 "use client";
 import { fetcher } from "@/app/fetchers/fetcher";
 import { swrKeys } from "@/app/fetchers/swrKeys";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import useSWR from "swr";
 
@@ -14,7 +14,7 @@ export const AuthRedirect = ({ to, condition }: IAuthRedirectProps) => {
   const router = useRouter();
 
   const headers = localStorage.getItem("headers");
-  const parsedHeaders = headers ? JSON.parse(headers) : [];
+  const parsedHeaders = headers ? JSON.parse(headers) : {};
 
   const init: RequestInit = {
     method: "GET",
@@ -26,7 +26,7 @@ export const AuthRedirect = ({ to, condition }: IAuthRedirectProps) => {
     },
   };
 
-  const { data, isLoading } = useSWR(swrKeys.user, () =>
+  const { data, error, isLoading } = useSWR(swrKeys.user, () =>
     fetcher(swrKeys.user, init)
   );
 
@@ -34,11 +34,11 @@ export const AuthRedirect = ({ to, condition }: IAuthRedirectProps) => {
     if (isLoading) {
       return;
     }
-    if (!data && condition === "loggedOut") {
+    if (error && condition === "loggedOut") {
       router.push(to);
     }
 
-    if (data && condition === "loggedIn") {
+    if (!error && data && condition === "loggedIn") {
       router.push(to);
     }
   }, [data, isLoading, router, condition, to]);

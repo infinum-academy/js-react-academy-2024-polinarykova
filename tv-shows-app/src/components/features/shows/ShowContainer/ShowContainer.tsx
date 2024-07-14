@@ -13,26 +13,15 @@ import {
 import useSWRMutation from "swr/mutation";
 import { swrKeys } from "@/app/fetchers/swrKeys";
 import { loggedMutator } from "@/app/fetchers/mutators";
-import { IShow } from "@/typings/show";
 
 export default function ShowContainer() {
   const { id } = useParams() as Params;
 
   const [reviewList, setReviewList] = useState<IReviewList>({ reviews: [] });
-  const [show, setShow] = useState<IShow>({
-    id: "",
-    title: "",
-    description: "",
-  });
 
-  const { trigger, isMutating, error } = useSWRMutation(
+  const { trigger, data, isMutating, error } = useSWRMutation(
     swrKeys.shows + `/${id}`,
-    loggedMutator,
-    {
-      onSuccess: (data) => {
-        setShow(data.show);
-      },
-    }
+    loggedMutator
   );
 
   useEffect(() => {
@@ -90,11 +79,11 @@ export default function ShowContainer() {
         flexDirection="column"
       >
         <ShowDetails
-          id={show.id ?? ""}
-          title={show.title ?? ""}
-          description={show.description ?? ""}
-          average_rating={show.average_rating ?? 0}
-          image_url={show.image_url ?? ""}
+          id={data?.show.id ?? ""}
+          title={data?.show.title ?? ""}
+          description={data?.show.description ?? ""}
+          average_rating={data?.show.average_rating ?? 0}
+          image_url={data?.show.image_url ?? ""}
         />
         <ShowReviewSection
           reviewList={reviewList}

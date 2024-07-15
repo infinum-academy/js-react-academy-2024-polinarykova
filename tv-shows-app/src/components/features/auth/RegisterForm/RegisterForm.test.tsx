@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { LoginForm } from "./LoginForm";
+import { RegisterForm } from "./RegisterForm";
 
 global.fetch = jest.fn(() => {
   return Promise.resolve({
@@ -10,21 +10,21 @@ global.fetch = jest.fn(() => {
   } as unknown as Response);
 });
 
-describe("Login Form", () => {
+describe("Register Form", () => {
   it("should render email input field", () => {
-    render(<LoginForm />);
+    render(<RegisterForm />);
 
     const email = screen.getAllByPlaceholderText("Enter email")[0];
     expect(email).toBeInTheDocument();
   });
   it("should render password input field", () => {
-    render(<LoginForm />);
+    render(<RegisterForm />);
 
     const pass = screen.getByTestId("password");
     expect(pass).toBeInTheDocument();
   });
   it("should render button and submit on clicking", async () => {
-    render(<LoginForm />);
+    render(<RegisterForm />);
 
     const button = screen.getByRole("button");
     expect(button).toBeInTheDocument();
@@ -34,6 +34,9 @@ describe("Login Form", () => {
 
     const pass = screen.getByTestId("password");
     fireEvent.change(pass, { target: { value: "test" } });
+
+    const pass_conf = screen.getByTestId("password_confirmation");
+    fireEvent.change(pass_conf, { target: { value: "test" } });
 
     button.click();
     await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));

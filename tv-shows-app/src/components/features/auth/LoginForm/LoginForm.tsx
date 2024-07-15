@@ -8,19 +8,9 @@ import {
   Text,
   chakra,
 } from "@chakra-ui/react";
-import {
-  RegisterOptions,
-  UseFormRegisterReturn,
-  useForm,
-} from "react-hook-form";
-import useSWRMutation from "swr/mutation";
-import { SignInMutator } from "@/app/fetchers/mutators";
-import { useState } from "react";
-import { swrKeys } from "@/app/fetchers/swrKeys";
 import NextLink from "next/link";
 import Logo from "@/components/shared/Logo/Logo";
 import PasswordInput from "@/components/shared/PasswordInput/PasswordInput";
-import { ISignInFormInputs } from "@/typings/input";
 import { useLogin } from "./LoginForm.utils";
 
 export function LoginForm() {

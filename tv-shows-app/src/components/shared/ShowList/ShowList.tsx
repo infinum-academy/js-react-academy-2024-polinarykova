@@ -18,9 +18,8 @@ export default function ShowList({ showList }: IShowListProps) {
     >
       {showList?.map((show, index) => {
         return (
-          <NextLink href={`/shows/${show.id}`}>
+          <NextLink href={`/shows/${show.id}`} key={show.id}>
             <ShowCard
-              key={show.id}
               title={show.title}
               imageUrl={show.image_url ?? ""}
               avgRating={show.average_rating ?? 0}

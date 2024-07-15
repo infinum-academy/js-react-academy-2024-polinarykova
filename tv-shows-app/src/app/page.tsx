@@ -1,5 +1,12 @@
 "use client";
 
+import { AuthRedirect } from "@/components/shared/AuthRedirect/AuthRedirect";
+
 export default function Home() {
-  window.location.href = "/shows";
+  return (
+    <>
+      <AuthRedirect to={"/login"} condition={"loggedOut"} />
+      <AuthRedirect to={"/shows"} condition={"loggedIn"} />
+    </>
+  );
 }

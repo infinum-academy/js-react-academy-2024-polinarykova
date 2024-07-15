@@ -5,6 +5,13 @@ import { FiLogOut } from "react-icons/fi";
 import { usePathname, useRouter } from "next/navigation";
 import NavigationLink from "../NavigationLink/NavigationLink";
 import Logo from "../Logo/Logo";
+import { SignInMutator, loggedMutator } from "@/app/fetchers/mutators";
+import useSWR from "swr";
+import useSWRMutation from "swr/mutation";
+import { swrKeys } from "@/app/fetchers/swrKeys";
+import { useEffect } from "react";
+import { fetcher } from "@/app/fetchers/fetcher";
+import useUserSWR from "@/hooks/useUserSWR";
 
 export default function SidebarNavigation() {
   const router = useRouter();
@@ -16,9 +23,11 @@ export default function SidebarNavigation() {
     { name: "My profile", path: "/my-profile" },
   ];
 
+  const { mutate } = useUserSWR();
+
   function handleLogOut() {
     localStorage.removeItem("headers");
-    router.push("/login");
+    mutate(null, { revalidate: false });
   }
 
   return (
@@ -39,9 +48,10 @@ export default function SidebarNavigation() {
         <Logo size="small" />
       </Flex>
 
-      {links.map((link) => {
+      {links.map((link, index) => {
         return (
           <NavigationLink
+            key={index}
             name={link.name}
             path={link.path}
             currCategory={pathname || ""}

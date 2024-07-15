@@ -19,6 +19,7 @@ export default function PasswordInput({ name, register }: IPasswordInputProps) {
   return (
     <InputGroup>
       <Input
+        data-testid="password"
         {...register(name)}
         type={show ? "text" : "password"}
         placeholder={

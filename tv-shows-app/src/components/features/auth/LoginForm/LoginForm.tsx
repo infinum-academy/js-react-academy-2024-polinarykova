@@ -21,22 +21,10 @@ import NextLink from "next/link";
 import Logo from "@/components/shared/Logo/Logo";
 import PasswordInput from "@/components/shared/PasswordInput/PasswordInput";
 import { ISignInFormInputs } from "@/typings/input";
+import { useLogin } from "./LoginForm.utils";
 
 export function LoginForm() {
-  const [error, setError] = useState("");
-  const { register, handleSubmit } = useForm<ISignInFormInputs>();
-  const { trigger } = useSWRMutation(swrKeys.sign_in, SignInMutator, {
-    onSuccess: () => {
-      setError("");
-      window.location.href = "/shows";
-    },
-    onError: (message) => {
-      setError(message.toString().split(":")[1]);
-    },
-  });
-  const onLogin = (data: ISignInFormInputs) => {
-    trigger(data);
-  };
+  const { error, register, handleSubmit, onLogin } = useLogin();
   return (
     <Flex
       direction="column"
@@ -58,16 +46,15 @@ export function LoginForm() {
         gap={5}
         onSubmit={handleSubmit(onLogin)}
       >
-        <FormControl isRequired={true}>
+        <FormControl>
           <FormLabel>Email</FormLabel>
           <Input
             {...register("email")}
-            required
             type="email"
             placeholder="Enter email"
           ></Input>
         </FormControl>
-        <FormControl isRequired={true}>
+        <FormControl>
           <FormLabel>Password</FormLabel>
           <PasswordInput name={"password"} register={register} />
         </FormControl>

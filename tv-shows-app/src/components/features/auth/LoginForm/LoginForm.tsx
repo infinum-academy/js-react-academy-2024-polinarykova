@@ -4,27 +4,27 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Text,
   chakra,
 } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
+import {
+  RegisterOptions,
+  UseFormRegisterReturn,
+  useForm,
+} from "react-hook-form";
 import useSWRMutation from "swr/mutation";
 import { SignInMutator } from "@/app/fetchers/mutators";
 import { useState } from "react";
 import { swrKeys } from "@/app/fetchers/swrKeys";
 import NextLink from "next/link";
 import Logo from "@/components/shared/Logo/Logo";
+import PasswordInput from "@/components/shared/PasswordInput/PasswordInput";
+import { ISignInFormInputs } from "@/typings/input";
 
-interface ILoginFormInputs {
-  email: string;
-  password: string;
-}
-
-export const LoginForm = () => {
+export function LoginForm() {
   const [error, setError] = useState("");
-  const { register, handleSubmit } = useForm<ILoginFormInputs>();
+  const { register, handleSubmit } = useForm<ISignInFormInputs>();
   const { trigger } = useSWRMutation(swrKeys.sign_in, SignInMutator, {
     onSuccess: () => {
       setError("");
@@ -34,7 +34,7 @@ export const LoginForm = () => {
       setError(message.toString().split(":")[1]);
     },
   });
-  const onLogin = (data: ILoginFormInputs) => {
+  const onLogin = (data: ISignInFormInputs) => {
     trigger(data);
   };
   return (
@@ -60,16 +60,16 @@ export const LoginForm = () => {
       >
         <FormControl isRequired={true}>
           <FormLabel>Email</FormLabel>
-          <Input {...register("email")} required type="email"></Input>
+          <Input
+            {...register("email")}
+            required
+            type="email"
+            placeholder="Enter email"
+          ></Input>
         </FormControl>
         <FormControl isRequired={true}>
           <FormLabel>Password</FormLabel>
-          <Input
-            {...register("password")}
-            type="password"
-            minLength={8}
-            required
-          ></Input>
+          <PasswordInput name={"password"} register={register} />
         </FormControl>
         {error && <Text color="red.500">{error}</Text>}
         <Button type="submit" marginTop={10}>
@@ -89,4 +89,4 @@ export const LoginForm = () => {
       </chakra.form>
     </Flex>
   );
-};
+}

@@ -4,7 +4,6 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Text,
   chakra,
@@ -16,16 +15,12 @@ import { useState } from "react";
 import { swrKeys } from "@/app/fetchers/swrKeys";
 import NextLink from "next/link";
 import Logo from "@/components/shared/Logo/Logo";
-
-interface IRegisterFormInputs {
-  email: string;
-  password: string;
-  password_confirmation: string;
-}
+import PasswordInput from "@/components/shared/PasswordInput/PasswordInput";
+import { ISignInFormInputs } from "@/typings/input";
 
 export const RegisterForm = () => {
   const [error, setError] = useState("");
-  const { register, handleSubmit } = useForm<IRegisterFormInputs>();
+  const { register, handleSubmit } = useForm<ISignInFormInputs>();
   const { trigger } = useSWRMutation(swrKeys.register, SignInMutator, {
     onSuccess: (response) => {
       setError("");
@@ -35,7 +30,7 @@ export const RegisterForm = () => {
       setError(message.toString().split(":")[1]);
     },
   });
-  const onRegister = (data: IRegisterFormInputs) => {
+  const onRegister = (data: ISignInFormInputs) => {
     if (data.password != data.password_confirmation) {
       setError("Passwords don't match!");
     } else {
@@ -65,24 +60,20 @@ export const RegisterForm = () => {
       >
         <FormControl isRequired={true}>
           <FormLabel>Email</FormLabel>
-          <Input {...register("email")} required type="email"></Input>
+          <Input
+            {...register("email")}
+            required
+            type="email"
+            placeholder="Enter email"
+          ></Input>
         </FormControl>
         <FormControl isRequired={true}>
           <FormLabel>Password</FormLabel>
-          <Input
-            {...register("password")}
-            type="password"
-            minLength={8}
-            required
-          ></Input>
+          <PasswordInput name="password" register={register} />
         </FormControl>
         <FormControl isRequired={true}>
           <FormLabel>Confirm Password</FormLabel>
-          <Input
-            {...register("password_confirmation")}
-            type="password"
-            required
-          ></Input>
+          <PasswordInput name="password_confirmation" register={register} />
         </FormControl>
         {error && <Text color="red.500">{error}</Text>}
         <Button type="submit" marginTop={10}>

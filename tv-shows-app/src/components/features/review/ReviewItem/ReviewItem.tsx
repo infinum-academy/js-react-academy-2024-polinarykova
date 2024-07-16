@@ -4,7 +4,7 @@ import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import RatingStars from "@/components/shared/RatingStars/RatingStars";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import ReviewForm from "../../shows/ReviewForm/ReviewForm";
+import ReviewForm from "../../../shared/ReviewForm/ReviewForm";
 
 interface IReviewProps {
   review: IReview;
@@ -47,7 +47,7 @@ export default function ReviewItem({ review, onDelete, onEdit }: IReviewProps) {
             borderRadius="full"
             boxSize={65}
           ></Image>
-          <Flex marginY="auto" flexDirection="column">
+          <Flex flexDirection="column">
             <Text>{review.user.email}</Text>
             {!editing && (
               <Flex flexDirection="row" gap={1}>
@@ -77,6 +77,7 @@ export default function ReviewItem({ review, onDelete, onEdit }: IReviewProps) {
               )}
               <DeleteIcon
                 onClick={() => {
+                  setEditing(false);
                   onDelete(Number(show_id), review.id);
                 }}
                 boxSize="20px"
@@ -94,7 +95,7 @@ export default function ReviewItem({ review, onDelete, onEdit }: IReviewProps) {
         )}
         {editing && (
           <chakra.div
-            marginTop={5}
+            marginTop={-5}
             width="80%"
             placeSelf="center"
             marginLeft={4}

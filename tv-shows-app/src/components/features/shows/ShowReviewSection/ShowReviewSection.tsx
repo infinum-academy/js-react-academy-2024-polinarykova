@@ -1,4 +1,4 @@
-import ReviewForm from "../ReviewForm/ReviewForm";
+import ReviewForm from "../../../shared/ReviewForm/ReviewForm";
 import { Heading } from "@chakra-ui/react";
 import ReviewList from "../../review/ReviewList/ReviewList";
 import { useHandleReviews } from "./ShowReviewSections.utils";

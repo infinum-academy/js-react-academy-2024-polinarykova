@@ -8,7 +8,7 @@ import {
   FormControl,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import RatingStars from "../../../shared/RatingStars/RatingStars";
+import RatingStars from "../RatingStars/RatingStars";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { usePathname } from "next/navigation";
@@ -91,14 +91,14 @@ export default function ReviewForm({
           {...register("comment", {
             required: "Comment is required.",
           })}
-          bg={editing ? "purple.100" : "white"}
-          height={editing ? 85 : 100}
+          bg={editing ? "purple.700" : "white"}
+          height={editing ? 50 : 100}
           borderRadius={10}
           placeholder="Add review"
           id="comment"
           flexDirection="column"
           marginBottom={5}
-          textColor="black"
+          textColor={editing ? "white" : "black"}
           disabled={isSubmitting}
           onChange={handleChange}
         />

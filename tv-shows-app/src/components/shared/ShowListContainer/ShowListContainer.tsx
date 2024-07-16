@@ -4,7 +4,7 @@ import { Flex, Spinner, Text } from "@chakra-ui/react";
 import { CiWarning } from "react-icons/ci";
 import useSWRMutation from "swr/mutation";
 import { swrKeys } from "@/app/fetchers/swrKeys";
-import { loggedMutator } from "@/app/fetchers/mutators";
+import { getAuthorizedMutator } from "@/app/fetchers/mutators";
 import { useEffect } from "react";
 
 interface IShowListContainerProps {
@@ -16,7 +16,7 @@ export default function ShowListContainer({
 }: IShowListContainerProps) {
   const { trigger, data, error, isMutating } = useSWRMutation(
     topRated ? swrKeys.top_rated : swrKeys.shows,
-    loggedMutator
+    getAuthorizedMutator
   );
 
   useEffect(() => {

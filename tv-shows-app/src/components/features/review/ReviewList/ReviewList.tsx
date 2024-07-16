@@ -1,15 +1,17 @@
-import { IReview, IReviewList } from "@/typings/review";
+import { IReviewList } from "@/typings/review";
 import { Flex } from "@chakra-ui/react";
 import ReviewItem from "../ReviewItem/ReviewItem";
 
 interface IReviewListProps {
   reviewList: IReviewList;
-  onDeleteReview: (review: IReview) => void;
+  onDelete: (id: number, reviewId: number) => void;
+  onEdit: (rating: number, comment: string, review_id: number) => void;
 }
 
 export default function reviewList({
   reviewList,
-  onDeleteReview,
+  onDelete,
+  onEdit,
 }: IReviewListProps) {
   return (
     <Flex marginY={10} gap={3} direction="column">
@@ -18,7 +20,8 @@ export default function reviewList({
           <ReviewItem
             review={review}
             key={index}
-            onDelete={onDeleteReview}
+            onDelete={onDelete}
+            onEdit={onEdit}
           ></ReviewItem>
         );
       })}

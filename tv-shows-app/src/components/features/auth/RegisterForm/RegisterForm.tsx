@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import useSWRMutation from "swr/mutation";
-import { SignInMutator } from "@/app/fetchers/mutators";
+import { postMutator } from "@/app/fetchers/mutators";
 import { useState } from "react";
 import { swrKeys } from "@/app/fetchers/swrKeys";
 import NextLink from "next/link";
@@ -21,7 +21,7 @@ import { ISignInFormInputs } from "@/typings/input";
 export const RegisterForm = () => {
   const [error, setError] = useState("");
   const { register, handleSubmit } = useForm<ISignInFormInputs>();
-  const { trigger } = useSWRMutation(swrKeys.register, SignInMutator, {
+  const { trigger } = useSWRMutation(swrKeys.register, postMutator, {
     onSuccess: (response) => {
       setError("");
       window.location.href = "/shows";

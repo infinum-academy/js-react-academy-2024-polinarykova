@@ -1,14 +1,35 @@
-import { IReview } from "@/typings/review";
-import { Flex, Text, Image } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
+import { IReview, IReviewFormInputs } from "@/typings/review";
+import { Flex, Text, Image, chakra } from "@chakra-ui/react";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import RatingStars from "@/components/shared/RatingStars/RatingStars";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import ReviewForm from "../../shows/ReviewForm/ReviewForm";
 
 interface IReviewProps {
   review: IReview;
-  onDelete: (review: IReview) => void;
+  onDelete: (id: number, reviewId: number) => void;
+  onEdit: (rating: number, comment: string, review_id: number) => void;
 }
 
-export default function ReviewItem({ review, onDelete }: IReviewProps) {
+export default function ReviewItem({ review, onDelete, onEdit }: IReviewProps) {
+  const path = usePathname();
+  const show_id = path?.split("/")[2];
+
+  const headers = localStorage.getItem("headers");
+  const parsedHeaders = headers ? JSON.parse(headers) : {};
+  const currentUser = parsedHeaders.uid;
+
+  let isFromCurrentUser = false;
+  if (currentUser == review.user.email) isFromCurrentUser = true;
+
+  const [editing, setEditing] = useState(false);
+
+  function handleEditSubmit(data: IReviewFormInputs) {
+    onEdit(data.rating, data.comment, review.id);
+    setEditing(false);
+  }
+
   return (
     <>
       <Flex
@@ -21,39 +42,71 @@ export default function ReviewItem({ review, onDelete }: IReviewProps) {
       >
         <Flex gap={30}>
           <Image
-            src={review.avatar_url}
+            src={review.user.image_url}
             fallbackSrc="/assets/avatar_default.png"
             borderRadius="full"
             boxSize={65}
           ></Image>
           <Flex marginY="auto" flexDirection="column">
-            <Text>{review.email}</Text>
-            <Flex flexDirection="row" gap={1}>
-              <Text marginY={3}>{review.rating} / 5</Text>
-              <RatingStars
-                label={""}
-                value={{
-                  selected: review.rating,
-                  hovered: 0,
-                }}
-                size="20px"
-              ></RatingStars>
-            </Flex>
+            <Text>{review.user.email}</Text>
+            {!editing && (
+              <Flex flexDirection="row" gap={1}>
+                <Text marginY={3}>{review.rating} / 5</Text>
+                <RatingStars
+                  label={""}
+                  value={{
+                    selected: review.rating,
+                    hovered: 0,
+                  }}
+                  size="20px"
+                ></RatingStars>
+              </Flex>
+            )}
           </Flex>
-          <DeleteIcon
-            onClick={() => {
-              onDelete(review);
-            }}
-            boxSize={30}
-            alignSelf="center"
-            marginLeft="auto"
-            cursor="pointer"
-            data-testid="delete-icon"
-          ></DeleteIcon>
+          {isFromCurrentUser && (
+            <Flex gap={3} marginLeft="auto" marginTop={-10}>
+              {!editing && (
+                <EditIcon
+                  boxSize="20px"
+                  alignSelf="center"
+                  cursor="pointer"
+                  onClick={() => {
+                    setEditing(true);
+                  }}
+                ></EditIcon>
+              )}
+              <DeleteIcon
+                onClick={() => {
+                  onDelete(Number(show_id), review.id);
+                }}
+                boxSize="20px"
+                alignSelf="center"
+                cursor="pointer"
+                data-testid="delete-icon"
+              ></DeleteIcon>
+            </Flex>
+          )}
         </Flex>
-        <Text marginX={95} marginTop={5}>
-          {review.comment}
-        </Text>
+        {!editing && (
+          <Text marginX={95} marginTop={5}>
+            {review.comment}
+          </Text>
+        )}
+        {editing && (
+          <chakra.div
+            marginTop={5}
+            width="80%"
+            placeSelf="center"
+            marginLeft={4}
+          >
+            <ReviewForm
+              onAdd={handleEditSubmit}
+              editing={true}
+              initialComment={review.comment}
+              initialRating={review.rating}
+            />
+          </chakra.div>
+        )}
       </Flex>
     </>
   );

@@ -5,6 +5,7 @@ import RatingStars from "@/components/shared/RatingStars/RatingStars";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import ReviewForm from "../../../shared/ReviewForm/ReviewForm";
+import { DeleteReviewButton } from "../DeleteReviewButton/DeleteReviewButton";
 
 interface IReviewProps {
   review: IReview;
@@ -28,6 +29,11 @@ export default function ReviewItem({ review, onDelete, onEdit }: IReviewProps) {
   function handleEditSubmit(data: IReviewFormInputs) {
     onEdit(data.rating, data.comment, review.id);
     setEditing(false);
+  }
+
+  function handleDelete() {
+    setEditing(false);
+    onDelete(Number(show_id), review.id);
   }
 
   return (
@@ -75,16 +81,7 @@ export default function ReviewItem({ review, onDelete, onEdit }: IReviewProps) {
                   }}
                 ></EditIcon>
               )}
-              <DeleteIcon
-                onClick={() => {
-                  setEditing(false);
-                  onDelete(Number(show_id), review.id);
-                }}
-                boxSize="20px"
-                alignSelf="center"
-                cursor="pointer"
-                data-testid="delete-icon"
-              ></DeleteIcon>
+              <DeleteReviewButton handleDelete={handleDelete} />
             </Flex>
           )}
         </Flex>

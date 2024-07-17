@@ -1,4 +1,4 @@
-// utils/useLogin.js
+"use client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useSWRMutation from "swr/mutation";

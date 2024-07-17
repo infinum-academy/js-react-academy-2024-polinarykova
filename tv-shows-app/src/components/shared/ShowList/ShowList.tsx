@@ -2,7 +2,7 @@
 import { Flex } from "@chakra-ui/react";
 import ShowCard from "../ShowCard/ShowCard";
 import NextLink from "next/link";
-import { IShow, IShowList } from "@/typings/show";
+import { IShow } from "@/typings/show";
 
 interface IShowListProps {
   showList: Array<IShow>;

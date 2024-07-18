@@ -17,14 +17,16 @@ import NextLink from "next/link";
 import Logo from "@/components/shared/Logo/Logo";
 import PasswordInput from "@/components/shared/PasswordInput/PasswordInput";
 import { ISignInFormInputs } from "@/typings/input";
+import { useRouter } from "next/navigation";
 
 export const RegisterForm = () => {
   const [error, setError] = useState("");
+  const router = useRouter();
   const { register, handleSubmit } = useForm<ISignInFormInputs>();
   const { trigger } = useSWRMutation(swrKeys.register, postMutator, {
     onSuccess: (response) => {
       setError("");
-      window.location.href = "/shows";
+      router.push("/shows");
     },
     onError: (message) => {
       setError(message.toString().split(":")[1]);
@@ -71,7 +73,8 @@ export const RegisterForm = () => {
           <FormLabel>Password</FormLabel>
           <PasswordInput
             data-testid="password"
-            {...register("password")}
+            register={register}
+            name="password"
             placeholder="Enter password"
           />
         </FormControl>
@@ -79,7 +82,8 @@ export const RegisterForm = () => {
           <FormLabel>Confirm Password</FormLabel>
           <PasswordInput
             data-testid="password_confirmation"
-            {...register("password_confirmation")}
+            register={register}
+            name="password_confirmation"
             placeholder="Enter password again"
           />
         </FormControl>

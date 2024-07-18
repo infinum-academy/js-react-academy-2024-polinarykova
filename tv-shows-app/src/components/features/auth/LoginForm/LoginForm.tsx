@@ -47,9 +47,10 @@ export function LoginForm() {
         <FormControl>
           <FormLabel>Password</FormLabel>
           <PasswordInput
-            data-testid="password"
-            {...register("password")}
+            register={register}
             placeholder="Enter password"
+            name="password"
+            data-testid="password"
           />
         </FormControl>
         {error && <Text color="red.500">{error}</Text>}

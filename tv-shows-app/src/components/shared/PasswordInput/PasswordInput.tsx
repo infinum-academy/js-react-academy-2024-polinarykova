@@ -1,3 +1,4 @@
+import { ISignInFormInputs } from "@/typings/input";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
   Icon,
@@ -7,8 +8,18 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import React from "react";
+import { UseFormRegister } from "react-hook-form";
 
-export default function PasswordInput({ ...rest }: InputProps) {
+interface IPasswordInputProps extends InputProps {
+  register: UseFormRegister<ISignInFormInputs>;
+  name: "password" | "password_confirmation";
+}
+
+export default function PasswordInput({
+  register,
+  name,
+  ...rest
+}: IPasswordInputProps) {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
@@ -18,10 +29,11 @@ export default function PasswordInput({ ...rest }: InputProps) {
   return (
     <InputGroup>
       <Input
-        {...rest}
         type={show ? "text" : "password"}
         minLength={8}
         required
+        {...register(name)}
+        {...rest}
       />
       <InputRightElement marginRight={2} cursor="pointer">
         {show ? hide : display}

@@ -20,7 +20,7 @@ export default function useUserSWR() {
   };
 
   const { mutate, data, isLoading, error } = useSWR(swrKeys.user, () =>
-    fetcher(swrKeys.user, init)
+    fetcher(swrKeys.user)
   );
 
   return {

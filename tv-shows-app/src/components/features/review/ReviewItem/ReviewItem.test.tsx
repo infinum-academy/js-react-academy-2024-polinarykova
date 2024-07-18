@@ -1,7 +1,6 @@
 import { usePathname } from "next/navigation";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { DeleteReviewButton } from "../DeleteReviewButton/DeleteReviewButton";
 import ReviewItem from "./ReviewItem";
+import { render, screen, fireEvent } from "@testing-library/react";
 
 const mockReview = {
   id: 1,
@@ -18,13 +17,6 @@ const mockReview = {
 jest.mock("next/navigation", () => ({
   usePathname: jest.fn(),
 }));
-
-jest.mock(
-  "@/components/features/review/DeleteReviewButton/DeleteReviewButton",
-  () => {
-    return jest.fn(() => null);
-  }
-);
 
 describe("ReviewItem", () => {
   it("should render user email", () => {
@@ -48,13 +40,15 @@ describe("ReviewItem", () => {
     expect(comment).toBeInTheDocument();
   });
 
-  it("should render delete button", () => {
+  it("should render delete button and call it on click", () => {
     (usePathname as jest.Mock).mockReturnValue(`/shows/${mockReview.show_id}`);
 
     localStorage.setItem("headers", JSON.stringify({ uid: "test@test.com" }));
 
     render(<ReviewItem review={mockReview} />);
 
-    expect(DeleteReviewButton).toHaveBeenCalled();
+    const deleteIcon = screen.getByTestId("delete-icon");
+
+    expect(deleteIcon).toBeInTheDocument();
   });
 });

@@ -2,8 +2,7 @@ import { IReview, IReviewFormInputs } from "@/typings/review";
 import { Flex, Text, Image, chakra } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import RatingStars from "@/components/shared/RatingStars/RatingStars";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useId, useState } from "react";
 import ReviewForm from "../../../shared/ReviewForm/ReviewForm";
 import { DeleteReviewButton } from "../DeleteReviewButton/DeleteReviewButton";
 import { deleteAuthorizedMutator, patchMutator } from "@/app/fetchers/mutators";
@@ -16,8 +15,7 @@ interface IReviewProps {
 }
 
 export default function ReviewItem({ review }: IReviewProps) {
-  const path = usePathname();
-  const show_id = path?.split("/")[2];
+  const show_id = useId();
 
   const headers = localStorage.getItem("headers");
   const parsedHeaders = headers ? JSON.parse(headers) : {};
@@ -118,7 +116,6 @@ export default function ReviewItem({ review }: IReviewProps) {
                 ></EditIcon>
               )}
               <DeleteReviewButton
-                data-testid="delete-button"
                 handleDelete={() => onDelete(Number(show_id), review.id)}
               />
             </Flex>

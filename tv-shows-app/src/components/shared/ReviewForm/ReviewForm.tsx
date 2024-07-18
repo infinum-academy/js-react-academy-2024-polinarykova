@@ -11,7 +11,7 @@ import {
 import RatingStars from "../RatingStars/RatingStars";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { usePathname } from "next/navigation";
+import useId from "@/hooks/useId";
 
 interface IReviewFormProps {
   onAdd: (review: IReviewFormInputs) => void;
@@ -29,8 +29,7 @@ export default function ReviewForm({
   const [selectedStars, setSelectedStars] = useState(initialRating || 0);
   const [hoveredStars, setHoveredStars] = useState(0);
 
-  const path = usePathname();
-  const id = path?.split("/")[2] || "";
+  const id = useId();
 
   const {
     register,
@@ -48,7 +47,7 @@ export default function ReviewForm({
 
   function onSubmit(data: IReviewFormInputs) {
     const dataToSubmit: IReviewFormInputs = {
-      show_id: id,
+      show_id: id || "",
       comment: data.comment,
       rating: data.rating,
     };

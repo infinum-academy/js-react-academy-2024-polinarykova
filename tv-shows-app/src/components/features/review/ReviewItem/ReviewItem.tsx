@@ -22,7 +22,9 @@ export default function ReviewItem({ review }: IReviewProps) {
   const currentUser = parsedHeaders.uid;
 
   let isFromCurrentUser = false;
-  if (currentUser == review.user.email) isFromCurrentUser = true;
+  if (currentUser == review.user.email) {
+    isFromCurrentUser = true;
+  }
 
   const [editing, setEditing] = useState(false);
 

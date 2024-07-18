@@ -37,7 +37,4 @@ export default function ShowListContainer({
   }
 
   return <ShowList showList={data?.shows || []} />;
-  {
-    shows: [];
-  }
 }

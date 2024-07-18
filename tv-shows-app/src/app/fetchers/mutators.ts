@@ -37,58 +37,49 @@ export async function postMutator(url: string, { arg }: { arg: any }) {
   return await response.json();
 }
 
-export async function postAuthorizedMutator(
+export async function mutator(
   url: string,
-  { arg }: { arg: any }
+  { arg, method }: { arg: any; method: string }
 ) {
   const headers = getHeaders();
   const init: RequestInit = {
-    method: "POST",
+    method: method,
     body: JSON.stringify(arg),
     headers: headers,
   };
 
   const response = await fetch(url, init);
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    const errorMessage = errorData.errors || "Something went wrong";
+  if (method == "DELETE") {
+    if (!response.ok) {
+      throw new Error("Something went wrong");
+    }
+    return;
+  } else {
+    if (!response.ok) {
+      const errorData = await response.json();
+      const errorMessage = errorData.errors || "Something went wrong";
 
-    throw new Error(errorMessage);
+      throw new Error(errorMessage);
+    }
+    return await response.json();
   }
-  return await response.json();
 }
 
-export async function deleteAuthorizedMutator(url: string, arg: { arg: any }) {
-  const headers = getHeaders();
-
-  const init: RequestInit = {
-    method: "DELETE",
-    body: JSON.stringify(arg.arg.body),
-    headers: headers,
-  };
-  const response = await fetch(arg.arg.url, init);
-
-  if (!response.ok) {
-    throw new Error("Something went wrong");
-  }
-  return;
+export async function postAuthorizedMutator(
+  url: string,
+  { arg }: { arg: any }
+) {
+  return mutator(url, { arg: arg, method: "POST" });
 }
 
-export async function patchMutator(url: string, arg: { arg: any }) {
-  const headers = getHeaders();
-  const init: RequestInit = {
-    method: "PATCH",
-    body: JSON.stringify(arg.arg.body),
-    headers: headers,
-  };
-  const response = await fetch(arg.arg.url, init);
+export async function deleteAuthorizedMutator(
+  url: string,
+  { arg }: { arg: any }
+) {
+  return mutator(arg.url, { arg: arg.body, method: "DELETE" });
+}
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    const errorMessage = errorData.errors || "Something went wrong";
-
-    throw new Error(errorMessage);
-  }
-  return await response.json();
+export async function patchMutator(url: string, { arg }: { arg: any }) {
+  return mutator(arg.url, { arg: arg.body, method: "PATCH" });
 }

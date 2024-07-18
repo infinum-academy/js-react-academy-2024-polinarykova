@@ -1,13 +1,20 @@
 "use client";
 import { Flex, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { useState } from "react";
-import { PiTelevisionSimple } from "react-icons/pi";
 import { FiLogOut } from "react-icons/fi";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import NavigationLink from "../NavigationLink/NavigationLink";
+import Logo from "../Logo/Logo";
+import { SignInMutator, loggedMutator } from "@/app/fetchers/mutators";
+import useSWR from "swr";
+import useSWRMutation from "swr/mutation";
+import { swrKeys } from "@/app/fetchers/swrKeys";
+import { useEffect } from "react";
+import { fetcher } from "@/app/fetchers/fetcher";
+import useUserSWR from "@/hooks/useUserSWR";
 
 export default function SidebarNavigation() {
+  const router = useRouter();
   const pathname = usePathname();
 
   const links = [
@@ -15,6 +22,13 @@ export default function SidebarNavigation() {
     { name: "Top rated", path: "/top-rated" },
     { name: "My profile", path: "/my-profile" },
   ];
+
+  const { mutate } = useUserSWR();
+
+  function handleLogOut() {
+    localStorage.removeItem("headers");
+    mutate(null, { revalidate: false });
+  }
 
   return (
     <Flex
@@ -31,22 +45,13 @@ export default function SidebarNavigation() {
       boxShadow="10px 0px 10px rgba(0, 0, 0, 0.3)"
     >
       <Flex marginLeft={-5} marginTop={-5} marginBottom={5}>
-        <PiTelevisionSimple size={30} />
-        <Text
-          marginLeft={2}
-          letterSpacing="wide"
-          fontSize="xl"
-          fontWeight="bold"
-          color="purple.100"
-          textShadow="2px 2px 4px rgba(0, 0, 0, 0.5)"
-        >
-          TV SHOWS APP
-        </Text>
+        <Logo size="small" />
       </Flex>
 
-      {links.map((link) => {
+      {links.map((link, index) => {
         return (
           <NavigationLink
+            key={index}
             name={link.name}
             path={link.path}
             currCategory={pathname || ""}
@@ -54,15 +59,13 @@ export default function SidebarNavigation() {
         );
       })}
 
-      <Flex
-        as={NextLink}
-        href={`/log-out`}
-        marginTop="auto"
-        flexDirection="row"
-        alignItems="center"
-        gap={3}
-      >
-        <Text fontSize="medium" letterSpacing="wide">
+      <Flex marginTop="auto" flexDirection="row" alignItems="center" gap={3}>
+        <Text
+          fontSize="medium"
+          letterSpacing="wide"
+          onClick={handleLogOut}
+          cursor="pointer"
+        >
           Log out
         </Text>
         <FiLogOut />

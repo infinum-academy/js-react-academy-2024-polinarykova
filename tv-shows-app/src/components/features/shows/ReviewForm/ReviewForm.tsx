@@ -1,11 +1,24 @@
 "use client";
 import { IReview } from "@/typings/review";
-import { Button, Input, Textarea, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Input,
+  Textarea,
+  chakra,
+  FormControl,
+  FormErrorMessage,
+} from "@chakra-ui/react";
 import RatingStars from "../../../shared/RatingStars/RatingStars";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 interface IReviewFormProps {
   onAdd: (review: IReview) => void;
+}
+
+interface IReviewFormInputs {
+  comment: string;
+  rating: number;
 }
 
 export default function ReviewForm({ onAdd }: IReviewFormProps) {
@@ -14,80 +27,97 @@ export default function ReviewForm({ onAdd }: IReviewFormProps) {
 
   const [selectedStars, setSelectedStars] = useState(0);
   const [hoveredStars, setHoveredStars] = useState(0);
-  const [comment, setComment] = useState("");
-  const [error, setError] = useState("");
 
-  function onClickHandler() {
-    if (comment == "" && !selectedStars) {
-      setError("Enter a comment and add a rating to post your review");
-      return;
-    } else if (comment == "") {
-      setError("Enter a comment to post your review");
-    } else if (!selectedStars) {
-      setError("Add a rating to post your review");
-    } else {
-      const newReview: IReview = {
-        email: user_email,
-        avatar_url: user_avatar_url,
-        rating: selectedStars,
-        comment: comment,
-      };
-      onAdd(newReview);
-      setSelectedStars(0);
-      setError("");
-      setComment("");
-      const commentEl = document.getElementById("comment") as HTMLInputElement;
-      commentEl.value = "";
-    }
-  }
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    clearErrors,
+    formState: { isSubmitting, errors },
+  } = useForm<IReviewFormInputs>({
+    defaultValues: { comment: "", rating: 0 },
+  });
 
-  function handleCommentChange() {
-    const commentEl = document.getElementById("comment") as HTMLInputElement;
-    const comment = commentEl.value;
+  useEffect(() => {
+    setValue("rating", selectedStars);
+  }, [selectedStars]);
 
-    setComment(comment);
+  function onSubmit(data: IReviewFormInputs) {
+    const newReview: IReview = {
+      email: user_email,
+      avatar_url: user_avatar_url,
+      rating: data.rating,
+      comment: data.comment,
+    };
+
+    onAdd(newReview);
+    setSelectedStars(0);
+    setValue("comment", "");
+    setValue("rating", 0);
   }
 
   function onChange(clicked: boolean, index: number) {
     if (clicked) {
       setSelectedStars(index);
+      clearErrors("rating");
     } else {
       setHoveredStars(index);
     }
   }
 
   return (
-    <>
-      <Textarea
-        bg="white"
-        height={100}
-        borderRadius={10}
-        placeholder="Add review"
-        id="comment"
-        flexDirection="column"
-        marginBottom={5}
-        onBlur={handleCommentChange}
-        textColor="black"
-      />
+    <chakra.form onSubmit={handleSubmit(onSubmit)}>
+      <FormControl isInvalid={!!errors.comment}>
+        <Textarea
+          {...register("comment", {
+            required: "Comment is required.",
+          })}
+          bg="white"
+          height={100}
+          borderRadius={10}
+          placeholder="Add review"
+          id="comment"
+          flexDirection="column"
+          marginBottom={5}
+          textColor="black"
+          disabled={isSubmitting}
+        />
+        <FormErrorMessage marginBottom={3} marginTop={-2}>
+          {errors.comment && errors.comment.message}
+        </FormErrorMessage>
+      </FormControl>
+
       <RatingStars
         data-testid="rating"
         label="Rating: "
-        onChange={onChange}
+        onChange={isSubmitting ? undefined : onChange}
         value={{ selected: selectedStars, hovered: hoveredStars }}
         size="30px"
       />
-      <Text color="red.500" marginTop={3} fontSize="large">
-        {error}
-      </Text>
+
+      <FormControl isInvalid={!!errors.rating}>
+        <Input
+          {...register("rating", {
+            validate: (value) => value !== 0 || "Rating is required",
+          })}
+          type="hidden"
+          value={selectedStars}
+        />
+        <FormErrorMessage marginBottom={3}>
+          {errors.rating && errors.rating.message}
+        </FormErrorMessage>
+      </FormControl>
+
       <Button
         height={50}
         borderRadius={30}
         width={100}
         marginTop={5}
-        onClick={onClickHandler}
+        type="submit"
+        disabled={isSubmitting}
       >
-        Post
+        {isSubmitting ? "Submitting..." : "Post"}
       </Button>
-    </>
+    </chakra.form>
   );
 }

@@ -1,25 +1,17 @@
+import { fetcher } from "@/app/fetchers/fetcher";
 import {
   deleteAuthorizedMutator,
-  getAuthorizedMutator,
   patchMutator,
   postAuthorizedMutator,
 } from "@/app/fetchers/mutators";
 import { swrKeys } from "@/app/fetchers/swrKeys";
 import { IReviewFormInputs, IReviewList } from "@/typings/review";
-import { useState, useEffect } from "react";
+import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 
 export function useHandleReviews(id: string) {
-  const [reviewList, setReviewList] = useState<IReviewList>({ reviews: [] });
-
-  const { trigger: triggerLoadReviews } = useSWRMutation(
-    swrKeys.load_reviews(id),
-    getAuthorizedMutator,
-    {
-      onSuccess: (data: IReviewList) => {
-        setReviewList(data);
-      },
-    }
+  const { mutate, data } = useSWR(swrKeys.load_reviews(id), () =>
+    fetcher<IReviewList>(swrKeys.load_reviews(id))
   );
 
   const { trigger: triggerAddReview } = useSWRMutation(
@@ -27,61 +19,17 @@ export function useHandleReviews(id: string) {
     postAuthorizedMutator,
     {
       onSuccess: () => {
-        triggerLoadReviews();
+        mutate();
       },
     }
   );
-
-  const { trigger: triggerDeleteReview } = useSWRMutation(
-    `${swrKeys.delete_review}`,
-    deleteAuthorizedMutator,
-    {
-      onSuccess: () => {
-        triggerLoadReviews();
-      },
-    }
-  );
-
-  const { trigger: triggerEditReview } = useSWRMutation(
-    swrKeys.add_review,
-    patchMutator,
-    {
-      onSuccess: () => {
-        triggerLoadReviews();
-      },
-    }
-  );
-
-  useEffect(() => {
-    triggerLoadReviews();
-  }, []);
 
   function onAdd(data: IReviewFormInputs) {
     triggerAddReview(data);
   }
 
-  function onDelete(show_id: number, reviewId: number) {
-    const url = `${swrKeys.delete_review + reviewId}`;
-    const arg = {
-      body: { id: show_id },
-      url: url,
-    };
-    triggerDeleteReview(arg);
-  }
-
-  function onEdit(rating: number, comment: string, review_id: number) {
-    const url = `${swrKeys.delete_review + review_id}`;
-    const arg = {
-      body: { rating: rating, comment: comment },
-      url: url,
-    };
-    triggerEditReview(arg);
-  }
-
   return {
-    reviewList,
+    data,
     onAdd,
-    onDelete,
-    onEdit,
   };
 }

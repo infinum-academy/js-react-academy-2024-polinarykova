@@ -37,24 +37,6 @@ export async function postMutator(url: string, { arg }: { arg: any }) {
   return await response.json();
 }
 
-export async function getAuthorizedMutator(url: string) {
-  const headers = getHeaders();
-  const init: RequestInit = {
-    method: "GET",
-    headers: headers,
-  };
-
-  const response = await fetch(url, init);
-
-  if (!response.ok) {
-    const errorData = await response.json();
-    const errorMessage = errorData.errors || "Something went wrong";
-
-    throw new Error(errorMessage);
-  }
-  return await response.json();
-}
-
 export async function postAuthorizedMutator(
   url: string,
   { arg }: { arg: any }

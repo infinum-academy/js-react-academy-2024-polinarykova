@@ -8,7 +8,7 @@ export default function ShowReviewSection() {
   const path = usePathname();
   const id = path?.split("/")[2];
 
-  const { reviewList, onAdd, onDelete, onEdit } = useHandleReviews(id || "");
+  const { data, onAdd } = useHandleReviews(id || "");
 
   return (
     <>
@@ -16,7 +16,7 @@ export default function ShowReviewSection() {
         Reviews
       </Heading>
       <ReviewForm onAdd={onAdd} editing={false} />
-      <ReviewList reviewList={reviewList} onDelete={onDelete} onEdit={onEdit} />
+      <ReviewList reviewList={data || { reviews: [] }} />
     </>
   );
 }

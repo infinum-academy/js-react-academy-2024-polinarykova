@@ -1,19 +1,21 @@
 import { IReview, IReviewFormInputs } from "@/typings/review";
 import { Flex, Text, Image, chakra } from "@chakra-ui/react";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { EditIcon } from "@chakra-ui/icons";
 import RatingStars from "@/components/shared/RatingStars/RatingStars";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import ReviewForm from "../../../shared/ReviewForm/ReviewForm";
 import { DeleteReviewButton } from "../DeleteReviewButton/DeleteReviewButton";
+import { deleteAuthorizedMutator, patchMutator } from "@/app/fetchers/mutators";
+import { swrKeys } from "@/app/fetchers/swrKeys";
+import { mutate } from "swr";
+import useSWRMutation from "swr/mutation";
 
 interface IReviewProps {
   review: IReview;
-  onDelete: (id: number, reviewId: number) => void;
-  onEdit: (rating: number, comment: string, review_id: number) => void;
 }
 
-export default function ReviewItem({ review, onDelete, onEdit }: IReviewProps) {
+export default function ReviewItem({ review }: IReviewProps) {
   const path = usePathname();
   const show_id = path?.split("/")[2];
 
@@ -31,9 +33,43 @@ export default function ReviewItem({ review, onDelete, onEdit }: IReviewProps) {
     setEditing(false);
   }
 
-  function handleDelete() {
+  const { trigger: triggerDeleteReview } = useSWRMutation(
+    `${swrKeys.delete_review}`,
+    deleteAuthorizedMutator,
+    {
+      onSuccess: () => {
+        mutate(swrKeys.load_reviews);
+      },
+    }
+  );
+
+  function onDelete(show_id: number, reviewId: number) {
     setEditing(false);
-    onDelete(Number(show_id), review.id);
+    const url = `${swrKeys.delete_review + reviewId}`;
+    const arg = {
+      body: { id: show_id },
+      url: url,
+    };
+    triggerDeleteReview(arg);
+  }
+
+  const { trigger: triggerEditReview } = useSWRMutation(
+    swrKeys.add_review,
+    patchMutator,
+    {
+      onSuccess: () => {
+        mutate(swrKeys.load_reviews);
+      },
+    }
+  );
+  function onEdit(rating: number, comment: string, review_id: number) {
+    setEditing(false);
+    const url = `${swrKeys.delete_review + review_id}`;
+    const arg = {
+      body: { rating: rating, comment: comment },
+      url: url,
+    };
+    triggerEditReview(arg);
   }
 
   return (
@@ -81,7 +117,9 @@ export default function ReviewItem({ review, onDelete, onEdit }: IReviewProps) {
                   }}
                 ></EditIcon>
               )}
-              <DeleteReviewButton handleDelete={handleDelete} />
+              <DeleteReviewButton
+                handleDelete={() => onDelete(Number(show_id), review.id)}
+              />
             </Flex>
           )}
         </Flex>

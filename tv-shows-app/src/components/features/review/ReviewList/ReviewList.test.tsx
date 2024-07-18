@@ -5,7 +5,7 @@ import ReviewList from "./ReviewList";
 import ReviewItem from "../ReviewItem/ReviewItem";
 
 jest.mock("@/components/features/review/ReviewItem/ReviewItem", () => {
-  return jest.fn(({ review, onDelete, onEdit }) => null);
+  return jest.fn(({ review }) => null);
 });
 
 const mockReviewList: IReviewList = {
@@ -47,13 +47,7 @@ export default mockReviewList;
 
 describe("ReviewList", () => {
   it("should render ReviewItem component", () => {
-    render(
-      <ReviewList
-        reviewList={mockReviewList}
-        onDelete={() => {}}
-        onEdit={() => {}}
-      />
-    );
+    render(<ReviewList reviewList={mockReviewList} />);
 
     expect(ReviewItem).toHaveBeenCalledTimes(3);
 
@@ -61,8 +55,6 @@ describe("ReviewList", () => {
       return expect(ReviewItem).toHaveBeenCalledWith(
         expect.objectContaining({
           review: review,
-          onDelete: expect.any(Function),
-          onEdit: expect.any(Function),
         }),
         {}
       );

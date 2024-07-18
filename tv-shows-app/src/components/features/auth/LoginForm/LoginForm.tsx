@@ -46,7 +46,11 @@ export function LoginForm() {
         </FormControl>
         <FormControl>
           <FormLabel>Password</FormLabel>
-          <PasswordInput name={"password"} register={register} />
+          <PasswordInput
+            data-testid="password"
+            {...register("password")}
+            placeholder="Enter password"
+          />
         </FormControl>
         {error && <Text color="red.500">{error}</Text>}
         <Button type="submit" marginTop={10}>

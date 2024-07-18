@@ -118,6 +118,7 @@ export default function ReviewItem({ review }: IReviewProps) {
                 ></EditIcon>
               )}
               <DeleteReviewButton
+                data-testid="delete-button"
                 handleDelete={() => onDelete(Number(show_id), review.id)}
               />
             </Flex>

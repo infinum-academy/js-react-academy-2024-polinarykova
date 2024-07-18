@@ -69,11 +69,19 @@ export const RegisterForm = () => {
         </FormControl>
         <FormControl isRequired={true}>
           <FormLabel>Password</FormLabel>
-          <PasswordInput name="password" register={register} />
+          <PasswordInput
+            data-testid="password"
+            {...register("password")}
+            placeholder="Enter password"
+          />
         </FormControl>
         <FormControl isRequired={true}>
           <FormLabel>Confirm Password</FormLabel>
-          <PasswordInput name="password_confirmation" register={register} />
+          <PasswordInput
+            data-testid="password_confirmation"
+            {...register("password_confirmation")}
+            placeholder="Enter password again"
+          />
         </FormControl>
         {error && <Text color="red.500">{error}</Text>}
         <Button type="submit" marginTop={10}>

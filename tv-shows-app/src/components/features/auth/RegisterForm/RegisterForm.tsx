@@ -15,7 +15,7 @@ import { useState } from "react";
 import { swrKeys } from "@/app/fetchers/swrKeys";
 import NextLink from "next/link";
 import Logo from "@/components/shared/Logo/Logo";
-import PasswordInput from "@/components/shared/PasswordInput/PasswordInput";
+import { PasswordInput } from "@/components/shared/PasswordInput/PasswordInput";
 import { ISignInFormInputs } from "@/typings/input";
 import { useRouter } from "next/navigation";
 
@@ -72,8 +72,8 @@ export const RegisterForm = () => {
         <FormControl isRequired={true}>
           <FormLabel>Password</FormLabel>
           <PasswordInput
+            {...register("password")}
             data-testid="password"
-            register={register}
             name="password"
             placeholder="Enter password"
           />
@@ -81,8 +81,8 @@ export const RegisterForm = () => {
         <FormControl isRequired={true}>
           <FormLabel>Confirm Password</FormLabel>
           <PasswordInput
+            {...register("password_confirmation")}
             data-testid="password_confirmation"
-            register={register}
             name="password_confirmation"
             placeholder="Enter password again"
           />

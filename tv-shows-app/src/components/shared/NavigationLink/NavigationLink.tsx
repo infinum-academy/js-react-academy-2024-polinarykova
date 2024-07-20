@@ -24,7 +24,7 @@ export default function NavigationLink({
       padding={2}
       marginLeft={-2}
     >
-      {">"} {name}
+      {name}
     </Text>
   );
 }

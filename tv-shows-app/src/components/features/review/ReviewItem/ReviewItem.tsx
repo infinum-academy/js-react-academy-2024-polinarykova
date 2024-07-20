@@ -79,7 +79,7 @@ export default function ReviewItem({ review }: IReviewProps) {
         height="fit-content"
         padding={7}
         borderRadius={15}
-        textColor="white"
+        //textColor="white"
         flexDirection="column"
       >
         <Flex gap={30}>

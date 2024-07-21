@@ -19,7 +19,7 @@ export default function RatingStars({
 }: IStarRatingProps) {
   return (
     <Flex flexDirection="row" gap={2} alignItems="center">
-      <Text color="white" fontSize={20} marginRight={2}>
+      <Text fontSize={20} marginRight={2}>
         {label}
       </Text>
       {[...Array(5)].map((_, index) => {

@@ -25,11 +25,9 @@ export default function SidebarNavigation() {
 
   return (
     <Flex
-      bg="purple.800"
       minHeight="100vh"
       height="auto"
       width="20vw"
-      color="white"
       flexDirection="column"
       padding={10}
       gap={3}

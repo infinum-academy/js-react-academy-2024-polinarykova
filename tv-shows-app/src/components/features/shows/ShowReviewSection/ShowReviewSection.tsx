@@ -11,7 +11,7 @@ export default function ShowReviewSection() {
 
   return (
     <>
-      <Heading size="lg" color="white" marginY={5}>
+      <Heading size="lg" marginY={5}>
         Reviews
       </Heading>
       <ReviewForm onAdd={onAdd} editing={false} />

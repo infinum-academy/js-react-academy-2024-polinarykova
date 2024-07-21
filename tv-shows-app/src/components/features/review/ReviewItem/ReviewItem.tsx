@@ -75,11 +75,10 @@ export default function ReviewItem({ review }: IReviewProps) {
   return (
     <>
       <Flex
-        bg="purple.700"
+        bg="lightPurple"
         height="fit-content"
         padding={7}
         borderRadius={15}
-        //textColor="white"
         flexDirection="column"
       >
         <Flex gap={30}>

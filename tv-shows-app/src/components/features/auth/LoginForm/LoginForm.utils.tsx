@@ -19,6 +19,7 @@ export const useLogin = () => {
     onError: (message) => {
       setError(message.toString().split(":")[1]);
     },
+    throwOnError: false,
   });
 
   const onLogin = (data: ISignInFormInputs) => {

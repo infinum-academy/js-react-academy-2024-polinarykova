@@ -16,9 +16,9 @@ export default function NavigationLink({
     <Text
       as={NextLink}
       href={path}
-      border={currCategory == path ? "2px solid purple.600" : "none"}
+      border={currCategory == path ? "2px solid lilac" : "none"}
       borderRadius={currCategory == path ? "20px" : "none"}
-      bg={currCategory == path ? "purple.600" : "none"}
+      bg={currCategory == path ? "lilac" : "none"}
       width="fit-content"
       letterSpacing="wide"
       padding={2}

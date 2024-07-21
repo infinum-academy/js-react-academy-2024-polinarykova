@@ -16,9 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <Flex bg="purple.900" minHeight="100vh" textColor="white">
-            {children}
-          </Flex>
+          <Flex minHeight="100vh">{children}</Flex>
         </Providers>
       </body>
     </html>

@@ -21,7 +21,7 @@ export function LoginForm() {
       gap={10}
       alignItems="center"
       width="500px"
-      bg="purple.800"
+      bg="lightPurple"
       paddingY={10}
       paddingX={12}
       borderRadius={30}
@@ -52,7 +52,7 @@ export function LoginForm() {
             data-testid="password"
           />
         </FormControl>
-        {error && <Text color="red.500">{error}</Text>}
+        {error && <Text color="error">{error}</Text>}
         <Button type="submit" marginTop={10}>
           Sign In
         </Button>

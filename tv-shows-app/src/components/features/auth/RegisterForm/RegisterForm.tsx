@@ -90,7 +90,7 @@ export const RegisterForm = () => {
         </FormControl>
         {error && <Text color="error">{error}</Text>}
         <Button type="submit" marginTop={10}>
-          Sign Up
+          SIGN UP
         </Button>
         <Text>
           Already have an account?{" "}

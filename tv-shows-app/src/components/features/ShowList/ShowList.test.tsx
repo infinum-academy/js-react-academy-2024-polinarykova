@@ -3,7 +3,7 @@ import ShowList from "./ShowList";
 import { IShow } from "@/typings/show";
 import ShowCard from "../ShowCard/ShowCard";
 
-jest.mock("@/components/shared/ShowCard/ShowCard", () => {
+jest.mock("@/components/features/ShowCard/ShowCard", () => {
   return jest.fn(({ title, averageRating, imageUrl }) => null);
 });
 

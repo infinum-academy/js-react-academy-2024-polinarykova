@@ -10,6 +10,12 @@ global.fetch = jest.fn(() => {
   } as unknown as Response);
 });
 
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn(() => ({
+    push: jest.fn(),
+  })),
+}));
+
 describe("Register Form", () => {
   it("should render email input field", () => {
     render(<RegisterForm />);

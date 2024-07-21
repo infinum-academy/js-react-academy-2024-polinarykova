@@ -1,5 +1,12 @@
 import { StarIcon } from "@chakra-ui/icons";
-import { Card, CardFooter, Text, Heading, Image, Flex } from "@chakra-ui/react";
+import {
+  Card,
+  CardFooter,
+  Text,
+  Image,
+  Flex,
+  CardBody,
+} from "@chakra-ui/react";
 
 interface IShowCardProps {
   title: string;
@@ -13,39 +20,24 @@ export default function ShowCard({
   avgRating,
 }: IShowCardProps) {
   return (
-    <Card
-      margin={5}
-      width="280px"
-      height="420px"
-      borderRadius={30}
-      overflow="hidden"
-    >
-      <Image
+    <Card>
+      <CardBody
+        as={Image}
         src={imageUrl}
         fallbackSrc="https://fakeimg.pl/600x400"
-        height="300px"
-        width="auto"
-        objectFit="cover"
-        objectPosition="center"
-      ></Image>
-      <CardFooter flexDirection="column" fontWeight="500">
+      ></CardBody>
+      <CardFooter>
+        <Text textStyle="subtitle.bold" marginBlock="auto">
+          {title}
+        </Text>
         <Flex
-          flexDirection="column"
-          justifyContent="space-evenly"
-          alignItems="start"
-          height="80px"
+          flexDirection="row"
+          alignItems="center"
+          gap={3}
+          textStyle="smallCaption.regular"
         >
-          <Text textStyle="subtitle.bold">{title}</Text>
-          <Flex
-            flexDirection="row"
-            alignItems="center"
-            gap={3}
-            textStyle="smallCaprion.regular"
-            textAlign="center"
-          >
-            <StarIcon></StarIcon>
-            <Text>{avgRating.toFixed(2)} / 5</Text>
-          </Flex>
+          <StarIcon></StarIcon>
+          <Text>{avgRating.toFixed(2)} / 5</Text>
         </Flex>
       </CardFooter>
     </Card>

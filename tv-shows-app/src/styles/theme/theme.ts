@@ -2,6 +2,7 @@ import { extendTheme } from "@chakra-ui/react";
 import radii from "./foundations/radius";
 import Button from "./components/button";
 import { textStyles } from "./foundations/textStyles";
+import { Card } from "./components/card";
 
 const colors = {
   lilac: "#8D5CE5",
@@ -20,6 +21,7 @@ const fonts = {
 const theme = extendTheme({
   components: {
     Button,
+    Card,
   },
   styles: {
     global: {

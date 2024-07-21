@@ -21,7 +21,7 @@ const baseStyle = definePartsStyle({
     padding: "0",
   },
   footer: {
-    height: "75px",
+    height: ["50px", "75px"],
     display: "flex",
     flexDirection: ["row", "column"],
     justifyContent: "space-between",

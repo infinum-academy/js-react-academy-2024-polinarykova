@@ -23,7 +23,7 @@ export default function NavigationContent() {
 
   return (
     <Flex direction="column" padding={5} height="90vh">
-      <Flex direction="column" flex="1" textStyle="subtitle.regular">
+      <Flex direction="column" flex="1" textStyle="title.regular" gap={3}>
         {links.map((link, index) => (
           <NavigationLink
             key={index}
@@ -41,7 +41,7 @@ export default function NavigationContent() {
         onClick={handleLogOut}
         cursor="pointer"
       >
-        <Text textStyle="smallCaption.regular" letterSpacing="wide">
+        <Text textStyle="body.regular" letterSpacing="wide">
           Log out
         </Text>
         <FiLogOut />

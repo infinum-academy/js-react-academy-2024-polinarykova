@@ -19,9 +19,7 @@ export default function SidebarNavigation() {
       <Flex marginLeft={-5} marginTop={-5} marginBottom={5}>
         <Logo size="small" />
       </Flex>
-      <Container flex="1">
-        <NavigationContent />
-      </Container>
+      <NavigationContent />
     </Flex>
   );
 }

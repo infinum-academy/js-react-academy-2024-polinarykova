@@ -1,18 +1,15 @@
 import React from "react";
 import {
-  Button,
   Drawer,
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  DrawerHeader,
   DrawerBody,
   useDisclosure,
   IconButton,
   Box,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import SidebarNavigation from "../SidebarNavigation/SideBarNavigation";
 import NavigationContent from "../NavigationContent/NavigationContent";
 
 export default function HamburgerMenu() {
@@ -24,9 +21,17 @@ export default function HamburgerMenu() {
 
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="xs">
         <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerBody bg="purple">
+        <DrawerContent mt="30px" bg="transparent">
+          <DrawerCloseButton
+            border="1px solid white"
+            borderRadius="modalRadius"
+            size="sm"
+          />
+          <DrawerBody
+            bg="purple"
+            borderTopLeftRadius="modalRadius"
+            paddingTop={10}
+          >
             <NavigationContent />
           </DrawerBody>
         </DrawerContent>

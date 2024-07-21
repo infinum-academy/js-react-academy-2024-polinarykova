@@ -31,7 +31,7 @@ export default function SidebarNavigation() {
       flexDirection="column"
       padding={10}
       gap={3}
-      fontSize="large"
+      textStyle="subtitle.regular"
       position="fixed"
       boxShadow="10px 0px 10px rgba(0, 0, 0, 0.3)"
     >

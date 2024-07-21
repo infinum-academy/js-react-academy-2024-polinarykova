@@ -28,25 +28,19 @@ export default function ShowCard({
         objectFit="cover"
         objectPosition="center"
       ></Image>
-      <CardFooter
-        flexDirection="column"
-        textColor="purple.900"
-        fontWeight="500"
-      >
+      <CardFooter flexDirection="column" fontWeight="500">
         <Flex
           flexDirection="column"
           justifyContent="space-evenly"
           alignItems="start"
           height="80px"
         >
-          <Text fontSize="large" fontWeight="bold">
-            {title}
-          </Text>
+          <Text textStyle="subtitle.bold">{title}</Text>
           <Flex
             flexDirection="row"
             alignItems="center"
             gap={3}
-            fontSize="large"
+            textStyle="smallCaprion.regular"
             textAlign="center"
           >
             <StarIcon></StarIcon>

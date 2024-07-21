@@ -40,7 +40,7 @@ describe("ReviewItem", () => {
     expect(comment).toBeInTheDocument();
   });
 
-  it("should render delete button and call it on click", () => {
+  it("should render delete button", () => {
     (usePathname as jest.Mock).mockReturnValue(`/shows/${mockReview.show_id}`);
 
     localStorage.setItem("headers", JSON.stringify({ uid: "test@test.com" }));

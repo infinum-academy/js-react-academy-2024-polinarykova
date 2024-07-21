@@ -1,6 +1,7 @@
 import { extendTheme } from "@chakra-ui/react";
 import radii from "./foundations/radius";
 import Button from "./components/button";
+import { textStyles } from "./foundations/textStyles";
 
 const colors = {
   lilac: "#8D5CE5",
@@ -31,6 +32,7 @@ const theme = extendTheme({
   fonts,
   colors,
   radii,
+  textStyles,
 });
 
 export default theme;

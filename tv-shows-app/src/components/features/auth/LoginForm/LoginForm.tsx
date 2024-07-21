@@ -54,7 +54,7 @@ export function LoginForm() {
         </FormControl>
         {error && <Text color="error">{error}</Text>}
         <Button type="submit" marginTop={10}>
-          Sign In
+          LOG IN
         </Button>
         <Text>
           Don't have an account yet?{" "}

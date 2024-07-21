@@ -131,14 +131,12 @@ export default function ReviewForm({
       </FormControl>
 
       <Button
-        height={editing ? 30 : 50}
         borderRadius={30}
-        width={85}
         marginTop={5}
         type="submit"
-        textColor="purple"
         disabled={isSubmitting}
-        bg={editing ? "lilac" : "white"}
+        variant="secondary"
+        size={editing ? "sm" : "md"}
       >
         {isSubmitting ? "Submitting..." : editing ? "Save" : "Post"}
       </Button>

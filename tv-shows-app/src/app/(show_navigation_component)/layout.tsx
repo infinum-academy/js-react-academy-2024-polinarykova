@@ -1,11 +1,9 @@
 "use client";
 import SidebarNavigation from "@/components/shared/SidebarNavigation/SideBarNavigation";
-
-import { Providers } from "../providers";
 import { Flex, useBreakpointValue } from "@chakra-ui/react";
 import HeaderNavigation from "@/components/shared/HeaderNavigation/HeaderNavigation";
 
-export default function RootLayout({
+export default function LoggedLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

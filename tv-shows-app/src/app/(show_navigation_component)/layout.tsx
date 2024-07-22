@@ -15,13 +15,11 @@ export default function RootLayout({
     md: <SidebarNavigation />,
   });
   return (
-    <Providers>
-      <Flex direction={{ base: "column", md: "row" }} width="100%">
-        {navigationComponent}
-        <Flex marginLeft={{ base: "0", md: "20vw" }} width="100%" height="100%">
-          {children}
-        </Flex>
+    <Flex direction={{ base: "column", md: "row" }} width="100%">
+      {navigationComponent}
+      <Flex marginLeft={{ base: "0", md: "20vw" }} width="100%" height="100%">
+        {children}
       </Flex>
-    </Providers>
+    </Flex>
   );
 }

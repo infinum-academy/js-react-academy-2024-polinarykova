@@ -3,8 +3,20 @@ export interface IReviewList {
 }
 
 export interface IReview {
-  email: string;
-  avatar_url: string;
+  id: number;
   rating: number;
   comment: string;
+  user: IUser;
+}
+
+export interface IUser {
+  id: number;
+  email: string;
+  image_url: string;
+}
+
+export interface IReviewFormInputs {
+  show_id: string;
+  comment: string;
+  rating: number;
 }

@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import Logo from "@/components/shared/Logo/Logo";
-import PasswordInput from "@/components/shared/PasswordInput/PasswordInput";
+import { PasswordInput } from "@/components/shared/PasswordInput/PasswordInput";
 import { useLogin } from "./LoginForm.utils";
 
 export function LoginForm() {
@@ -46,7 +46,11 @@ export function LoginForm() {
         </FormControl>
         <FormControl>
           <FormLabel>Password</FormLabel>
-          <PasswordInput name={"password"} register={register} />
+          <PasswordInput
+            {...register("password")}
+            placeholder="Enter password"
+            data-testid="password"
+          />
         </FormControl>
         {error && <Text color="red.500">{error}</Text>}
         <Button type="submit" marginTop={10}>

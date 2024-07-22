@@ -1,10 +1,7 @@
 "use client";
-import { fetcher } from "@/app/fetchers/fetcher";
-import { swrKeys } from "@/app/fetchers/swrKeys";
 import useUserSWR from "@/hooks/useUserSWR";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import useSWR from "swr";
 
 interface IAuthRedirectProps {
   to: string;

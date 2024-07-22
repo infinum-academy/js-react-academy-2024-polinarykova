@@ -2,10 +2,10 @@
 import ShowList from "../ShowList/ShowList";
 import { Flex, Spinner, Text } from "@chakra-ui/react";
 import { CiWarning } from "react-icons/ci";
-import useSWRMutation from "swr/mutation";
 import { swrKeys } from "@/app/fetchers/swrKeys";
-import { loggedMutator } from "@/app/fetchers/mutators";
-import { useEffect } from "react";
+import useSWR from "swr";
+import { IShowList } from "@/typings/show";
+import { fetcher } from "@/app/fetchers/fetcher";
 
 interface IShowListContainerProps {
   topRated: boolean;
@@ -14,16 +14,12 @@ interface IShowListContainerProps {
 export default function ShowListContainer({
   topRated,
 }: IShowListContainerProps) {
-  const { trigger, data, error, isMutating } = useSWRMutation(
+  const { data, isLoading, error } = useSWR<IShowList>(
     topRated ? swrKeys.top_rated : swrKeys.shows,
-    loggedMutator
+    fetcher<IShowList>
   );
 
-  useEffect(() => {
-    trigger();
-  }, []);
-
-  if (isMutating) {
+  if (isLoading) {
     return (
       <Flex margin="auto">
         <Spinner boxSize={50} />
@@ -40,5 +36,5 @@ export default function ShowListContainer({
     );
   }
 
-  return <ShowList showList={data?.shows} />;
+  return <ShowList showList={data?.shows || []} />;
 }

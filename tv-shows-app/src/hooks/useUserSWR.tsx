@@ -1,6 +1,11 @@
 import { fetcher } from "@/app/fetchers/fetcher";
 import { swrKeys } from "@/app/fetchers/swrKeys";
+import { IUser } from "@/typings/review";
 import useSWR from "swr";
+
+interface IResponseUser {
+  user: IUser;
+}
 
 export default function useUserSWR() {
   const headers =
@@ -19,8 +24,9 @@ export default function useUserSWR() {
     },
   };
 
-  const { mutate, data, isLoading, error } = useSWR(swrKeys.user, () =>
-    fetcher(swrKeys.user)
+  const { mutate, data, isLoading, error } = useSWR<IResponseUser>(
+    swrKeys.user,
+    () => fetcher<IResponseUser>(swrKeys.user)
   );
 
   return {

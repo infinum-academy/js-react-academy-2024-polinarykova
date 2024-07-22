@@ -18,7 +18,7 @@ export default function NavigationContent() {
 
   function handleLogOut() {
     localStorage.removeItem("headers");
-    mutate(null, { revalidate: false });
+    mutate(undefined, { revalidate: false });
   }
 
   return (

@@ -1,26 +1,21 @@
-import ReviewForm from "../ReviewForm/ReviewForm";
+import ReviewForm from "../../../shared/ReviewForm/ReviewForm";
 import { Heading } from "@chakra-ui/react";
 import ReviewList from "../../review/ReviewList/ReviewList";
-import { IReview, IReviewList } from "@/typings/review";
+import { useHandleReviews } from "./ShowReviewSections.utils";
+import useId from "@/hooks/useId";
 
-interface IShowReviewSectionProps {
-  reviewList: IReviewList;
-  addShowReview: (review: IReview) => void;
-  deleteShowReview: (review: IReview) => void;
-}
+export default function ShowReviewSection() {
+  const id = useId();
 
-export default function ShowReviewSection({
-  reviewList,
-  addShowReview,
-  deleteShowReview,
-}: IShowReviewSectionProps) {
+  const { data, onAdd } = useHandleReviews(id || "");
+
   return (
     <>
       <Heading size="lg" color="white" marginY={5}>
         Reviews
       </Heading>
-      <ReviewForm onAdd={addShowReview} />
-      <ReviewList reviewList={reviewList} onDeleteReview={deleteShowReview} />
+      <ReviewForm onAdd={onAdd} editing={false} />
+      <ReviewList reviewList={data || { reviews: [] }} />
     </>
   );
 }

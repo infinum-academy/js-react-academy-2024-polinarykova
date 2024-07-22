@@ -1,4 +1,15 @@
-export async function SignInMutator(url: string, { arg }: { arg: any }) {
+function getHeaders() {
+  const headers = localStorage.getItem("headers");
+  const parsedHeaders = headers ? JSON.parse(headers) : {};
+  return {
+    "Content-Type": "application/json",
+    "access-token": parsedHeaders["access-token"],
+    client: parsedHeaders.client,
+    uid: parsedHeaders.uid,
+  };
+}
+
+export async function postMutator(url: string, { arg }: { arg: any }) {
   const response = await fetch(url, {
     method: "POST",
     body: JSON.stringify(arg),
@@ -26,27 +37,49 @@ export async function SignInMutator(url: string, { arg }: { arg: any }) {
   return await response.json();
 }
 
-export async function loggedMutator(url: string, { arg }: { arg: any }) {
-  const headers = localStorage.getItem("headers");
-  const parsedHeaders = headers ? JSON.parse(headers) : {};
-
+export async function mutator(
+  url: string,
+  { arg, method }: { arg: any; method: string }
+) {
+  const headers = getHeaders();
   const init: RequestInit = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "access-token": parsedHeaders["access-token"],
-      client: parsedHeaders.client,
-      uid: parsedHeaders.uid,
-    },
+    method: method,
+    body: JSON.stringify(arg),
+    headers: headers,
   };
 
   const response = await fetch(url, init);
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    const errorMessage = errorData.errors || "Something went wrong";
+  if (method == "DELETE") {
+    if (!response.ok) {
+      throw new Error("Something went wrong");
+    }
+    return;
+  } else {
+    if (!response.ok) {
+      const errorData = await response.json();
+      const errorMessage = errorData.errors || "Something went wrong";
 
-    throw new Error(errorMessage);
+      throw new Error(errorMessage);
+    }
+    return await response.json();
   }
-  return await response.json();
+}
+
+export async function postAuthorizedMutator(
+  url: string,
+  { arg }: { arg: any }
+) {
+  return mutator(url, { arg: arg, method: "POST" });
+}
+
+export async function deleteAuthorizedMutator(
+  url: string,
+  { arg }: { arg: any }
+) {
+  return mutator(arg.url, { arg: arg.body, method: "DELETE" });
+}
+
+export async function patchMutator(url: string, { arg }: { arg: any }) {
+  return mutator(arg.url, { arg: arg.body, method: "PATCH" });
 }

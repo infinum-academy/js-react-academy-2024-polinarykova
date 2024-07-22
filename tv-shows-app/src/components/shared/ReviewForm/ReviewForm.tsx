@@ -1,5 +1,5 @@
 "use client";
-import { IReview } from "@/typings/review";
+import { IReviewFormInputs } from "@/typings/review";
 import {
   Button,
   Input,
@@ -8,25 +8,28 @@ import {
   FormControl,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import RatingStars from "../../../shared/RatingStars/RatingStars";
+import RatingStars from "../RatingStars/RatingStars";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import useId from "@/hooks/useId";
 
 interface IReviewFormProps {
-  onAdd: (review: IReview) => void;
+  onAdd: (review: IReviewFormInputs) => void;
+  editing: boolean;
+  initialComment?: string;
+  initialRating?: number;
 }
 
-interface IReviewFormInputs {
-  comment: string;
-  rating: number;
-}
-
-export default function ReviewForm({ onAdd }: IReviewFormProps) {
-  const user_avatar_url = "assets/avatar.jpeg";
-  const user_email = "best_reviewer@gmail.com";
-
-  const [selectedStars, setSelectedStars] = useState(0);
+export default function ReviewForm({
+  onAdd,
+  editing,
+  initialComment,
+  initialRating,
+}: IReviewFormProps) {
+  const [selectedStars, setSelectedStars] = useState(initialRating || 0);
   const [hoveredStars, setHoveredStars] = useState(0);
+
+  const id = useId();
 
   const {
     register,
@@ -43,14 +46,14 @@ export default function ReviewForm({ onAdd }: IReviewFormProps) {
   }, [selectedStars]);
 
   function onSubmit(data: IReviewFormInputs) {
-    const newReview: IReview = {
-      email: user_email,
-      avatar_url: user_avatar_url,
-      rating: data.rating,
+    const dataToSubmit: IReviewFormInputs = {
+      show_id: id || "",
       comment: data.comment,
+      rating: data.rating,
     };
 
-    onAdd(newReview);
+    onAdd(dataToSubmit);
+
     setSelectedStars(0);
     setValue("comment", "");
     setValue("rating", 0);
@@ -65,22 +68,38 @@ export default function ReviewForm({ onAdd }: IReviewFormProps) {
     }
   }
 
+  function onEditingSubmit(data: IReviewFormInputs) {
+    onAdd(data);
+  }
+
+  useEffect(() => setValue("comment", initialComment || ""), []);
+
+  function handleChange(event: any) {
+    const value = event.target.value;
+    setValue("comment", value);
+  }
+
   return (
-    <chakra.form onSubmit={handleSubmit(onSubmit)}>
+    <chakra.form
+      onSubmit={
+        editing ? handleSubmit(onEditingSubmit) : handleSubmit(onSubmit)
+      }
+    >
       <FormControl isInvalid={!!errors.comment}>
         <Textarea
           {...register("comment", {
             required: "Comment is required.",
           })}
-          bg="white"
-          height={100}
+          bg={editing ? "purple.700" : "white"}
+          height={editing ? 50 : 100}
           borderRadius={10}
           placeholder="Add review"
           id="comment"
           flexDirection="column"
           marginBottom={5}
-          textColor="black"
+          textColor={editing ? "white" : "black"}
           disabled={isSubmitting}
+          onChange={handleChange}
         />
         <FormErrorMessage marginBottom={3} marginTop={-2}>
           {errors.comment && errors.comment.message}
@@ -91,8 +110,11 @@ export default function ReviewForm({ onAdd }: IReviewFormProps) {
         data-testid="rating"
         label="Rating: "
         onChange={isSubmitting ? undefined : onChange}
-        value={{ selected: selectedStars, hovered: hoveredStars }}
-        size="30px"
+        value={{
+          selected: selectedStars,
+          hovered: hoveredStars,
+        }}
+        size={editing ? "20px" : "30px"}
       />
 
       <FormControl isInvalid={!!errors.rating}>
@@ -109,14 +131,16 @@ export default function ReviewForm({ onAdd }: IReviewFormProps) {
       </FormControl>
 
       <Button
-        height={50}
+        height={editing ? 30 : 50}
         borderRadius={30}
-        width={100}
+        width={85}
         marginTop={5}
         type="submit"
+        textColor="purple.900"
         disabled={isSubmitting}
+        bg={editing ? "purple.100" : "white"}
       >
-        {isSubmitting ? "Submitting..." : "Post"}
+        {isSubmitting ? "Submitting..." : editing ? "Save" : "Post"}
       </Button>
     </chakra.form>
   );

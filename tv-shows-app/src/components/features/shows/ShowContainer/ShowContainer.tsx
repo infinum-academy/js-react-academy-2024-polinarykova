@@ -1,55 +1,26 @@
 import { Flex, Spinner, Text } from "@chakra-ui/react";
 import ShowDetails from "../ShowDetails/ShowDetails";
 import ShowReviewSection from "../ShowReviewSection/ShowReviewSection";
-import { IReview, IReviewList } from "@/typings/review";
-import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { CiWarning } from "react-icons/ci";
-import {
-  loadFromLocalStorage,
-  saveToLocalStorage,
-} from "./ShowContainer.utils";
-import useSWRMutation from "swr/mutation";
 import { swrKeys } from "@/app/fetchers/swrKeys";
-import { loggedMutator } from "@/app/fetchers/mutators";
+import { fetcher } from "@/app/fetchers/fetcher";
+import useSWR from "swr";
+import { IShow } from "@/typings/show";
 
 export default function ShowContainer() {
   const { id } = useParams() as Params;
 
-  const [reviewList, setReviewList] = useState<IReviewList>({ reviews: [] });
-
-  const { trigger, data, isMutating, error } = useSWRMutation(
-    swrKeys.shows + `/${id}`,
-    loggedMutator
+  const { data, error, isLoading } = useSWR<IShow>(
+    swrKeys.show(id),
+    async () => {
+      const response = await fetcher<{ show: IShow }>(swrKeys.show(id));
+      return response.show;
+    }
   );
 
-  useEffect(() => {
-    trigger();
-  }, []);
-
-  useEffect(() => {
-    const loadedList = loadFromLocalStorage(id);
-    if (loadedList) {
-      setReviewList(loadedList);
-    }
-  }, [id]);
-
-  function addShowReview(review: IReview) {
-    const newList = { reviews: [...reviewList.reviews, review] };
-    setReviewList(newList);
-    saveToLocalStorage(newList, id);
-  }
-
-  function deleteShowReview(reviewToRemove: IReview) {
-    const newList = {
-      reviews: reviewList.reviews.filter((review) => review !== reviewToRemove),
-    };
-    setReviewList(newList);
-    saveToLocalStorage(newList, id);
-  }
-
-  if (isMutating) {
+  if (isLoading) {
     return (
       <Flex margin="auto">
         <Spinner boxSize={50} />
@@ -79,17 +50,13 @@ export default function ShowContainer() {
         flexDirection="column"
       >
         <ShowDetails
-          id={data?.show.id ?? ""}
-          title={data?.show.title ?? ""}
-          description={data?.show.description ?? ""}
-          average_rating={data?.show.average_rating ?? 0}
-          image_url={data?.show.image_url ?? ""}
+          id={data?.id ?? ""}
+          title={data?.title ?? ""}
+          description={data?.description ?? ""}
+          average_rating={data?.average_rating ?? 0}
+          image_url={data?.image_url ?? ""}
         />
-        <ShowReviewSection
-          reviewList={reviewList}
-          addShowReview={addShowReview}
-          deleteShowReview={deleteShowReview}
-        />
+        <ShowReviewSection />
       </Flex>
     </Flex>
   );

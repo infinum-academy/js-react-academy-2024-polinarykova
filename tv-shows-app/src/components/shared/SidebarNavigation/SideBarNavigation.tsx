@@ -1,16 +1,9 @@
 "use client";
 import { Flex, Text } from "@chakra-ui/react";
-import NextLink from "next/link";
 import { FiLogOut } from "react-icons/fi";
 import { usePathname, useRouter } from "next/navigation";
 import NavigationLink from "../NavigationLink/NavigationLink";
 import Logo from "../Logo/Logo";
-import { SignInMutator, loggedMutator } from "@/app/fetchers/mutators";
-import useSWR from "swr";
-import useSWRMutation from "swr/mutation";
-import { swrKeys } from "@/app/fetchers/swrKeys";
-import { useEffect } from "react";
-import { fetcher } from "@/app/fetchers/fetcher";
 import useUserSWR from "@/hooks/useUserSWR";
 
 export default function SidebarNavigation() {

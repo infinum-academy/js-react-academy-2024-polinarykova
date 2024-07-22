@@ -9,6 +9,7 @@ import { deleteAuthorizedMutator, patchMutator } from "@/app/fetchers/mutators";
 import { swrKeys } from "@/app/fetchers/swrKeys";
 import { mutate } from "swr";
 import useSWRMutation from "swr/mutation";
+import useUserSWR from "@/hooks/useUserSWR";
 
 interface IReviewProps {
   review: IReview;
@@ -17,14 +18,8 @@ interface IReviewProps {
 export default function ReviewItem({ review }: IReviewProps) {
   const show_id = useId();
 
-  const headers = localStorage.getItem("headers");
-  const parsedHeaders = headers ? JSON.parse(headers) : {};
-  const currentUser = parsedHeaders.uid;
-
-  let isFromCurrentUser = false;
-  if (currentUser == review.user.email) {
-    isFromCurrentUser = true;
-  }
+  const { data } = useUserSWR();
+  let isFromCurrentUser = data?.user.email == review.user.email;
 
   const [editing, setEditing] = useState(false);
 

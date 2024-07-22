@@ -22,7 +22,7 @@ export default function NavigationContent() {
   }
 
   return (
-    <Flex direction="column" padding={5} height="90vh">
+    <Flex direction="column" padding={5} height="100%">
       <Flex direction="column" flex="1" textStyle="title.regular" gap={3}>
         {links.map((link, index) => (
           <NavigationLink

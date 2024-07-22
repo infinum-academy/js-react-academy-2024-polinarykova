@@ -7,8 +7,8 @@ export default function SidebarNavigation() {
   return (
     <Flex
       minHeight="100vh"
-      height="auto"
-      width="20vw"
+      height="100%"
+      width="300px"
       flexDirection="column"
       padding={10}
       gap={3}

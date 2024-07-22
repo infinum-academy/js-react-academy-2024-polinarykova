@@ -19,6 +19,7 @@ export default function ReviewItem({ review }: IReviewProps) {
   const show_id = useId();
 
   const { data } = useUserSWR();
+
   let isFromCurrentUser = data?.user.email == review.user.email;
 
   const [editing, setEditing] = useState(false);
@@ -29,7 +30,7 @@ export default function ReviewItem({ review }: IReviewProps) {
   }
 
   const { trigger: triggerDeleteReview } = useSWRMutation(
-    `${swrKeys.delete_review}`,
+    `${swrKeys.review(review.id)}`,
     deleteAuthorizedMutator,
     {
       onSuccess: () => {
@@ -38,18 +39,15 @@ export default function ReviewItem({ review }: IReviewProps) {
     }
   );
 
-  function onDelete(show_id: number, reviewId: number) {
+  function onDelete(show_id: number) {
     setEditing(false);
-    const url = `${swrKeys.delete_review + reviewId}`;
-    const arg = {
-      body: { id: show_id },
-      url: url,
-    };
+    const arg = { id: show_id };
+
     triggerDeleteReview(arg);
   }
 
   const { trigger: triggerEditReview } = useSWRMutation(
-    swrKeys.add_review,
+    swrKeys.review(review.id),
     patchMutator,
     {
       onSuccess: () => {
@@ -59,11 +57,8 @@ export default function ReviewItem({ review }: IReviewProps) {
   );
   function onEdit(rating: number, comment: string, review_id: number) {
     setEditing(false);
-    const url = `${swrKeys.delete_review + review_id}`;
-    const arg = {
-      body: { rating: rating, comment: comment },
-      url: url,
-    };
+    const arg = { rating: rating, comment: comment };
+
     triggerEditReview(arg);
   }
 
@@ -112,7 +107,7 @@ export default function ReviewItem({ review }: IReviewProps) {
                 ></EditIcon>
               )}
               <DeleteReviewButton
-                handleDelete={() => onDelete(Number(show_id), review.id)}
+                handleDelete={() => onDelete(Number(show_id))}
               />
             </Flex>
           )}

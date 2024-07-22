@@ -77,9 +77,9 @@ export async function deleteAuthorizedMutator(
   url: string,
   { arg }: { arg: any }
 ) {
-  return mutator(arg.url, { arg: arg.body, method: "DELETE" });
+  return mutator(url, { arg, method: "DELETE" });
 }
 
 export async function patchMutator(url: string, { arg }: { arg: any }) {
-  return mutator(arg.url, { arg: arg.body, method: "PATCH" });
+  return mutator(url, { arg, method: "PATCH" });
 }

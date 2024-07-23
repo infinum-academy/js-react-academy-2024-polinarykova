@@ -32,12 +32,30 @@ const Button = defineStyleConfig({
 
     secondary: {
       bg: "lilac",
-      color: "lightPurple",
+      color: "white",
 
       _hover: {
         bg: "lightPurple",
         color: "purple",
       },
+    },
+
+    disabled: {
+      bg: "white",
+      color: "lilac",
+      cursor: "auto",
+    },
+
+    outline: {
+      bg: "white",
+      color: "purple",
+      border: "2px solid purple",
+    },
+
+    selected: {
+      bg: "lilac",
+      color: "white",
+      border: "2px solid lilac",
     },
   },
   defaultProps: {

@@ -1,8 +1,6 @@
-import { swrKeys } from "@/app/fetchers/swrKeys";
 import { DeleteIcon } from "@chakra-ui/icons";
 import {
   useDisclosure,
-  IconButton,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -41,13 +39,10 @@ export function DeleteReviewButton({
             <Text>Delete your review</Text>
           </ModalBody>
           <ModalFooter>
-            <Button variant="ghost" mr={3} onClick={onClose}>
+            <Button size="sm" mr={3} onClick={onClose}>
               No
             </Button>
-            <Button
-              _hover={{ bg: "purple.400", color: "white" }}
-              onClick={handleDelete}
-            >
+            <Button variant="secondary" size="sm" onClick={handleDelete}>
               Yes
             </Button>
           </ModalFooter>

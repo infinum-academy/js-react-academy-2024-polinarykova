@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
-import { Providers } from "./providers";
+import { Inter } from "next/font/google";
+import SidebarNavigation from "@/components/shared/SidebarNavigation/SideBarNavigation";
 import { Flex } from "@chakra-ui/react";
+import { Providers } from "./providers";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "TV shows APP",
@@ -16,9 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <Flex bg="purple.900" minHeight="100vh" textColor="white">
-            {children}
-          </Flex>
+          <Flex minHeight="100vh">{children}</Flex>
         </Providers>
       </body>
     </html>

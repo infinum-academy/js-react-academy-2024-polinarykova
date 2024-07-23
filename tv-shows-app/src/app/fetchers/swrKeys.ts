@@ -8,5 +8,5 @@ export const swrKeys = {
   top_rated: `${apiUrl}/shows/top_rated`,
   add_review: `${apiUrl}/reviews`,
   load_reviews: (id: string) => `${apiUrl}/shows/${id}/reviews`,
-  delete_review: `${apiUrl}/reviews/`,
+  review: (id: number) => `${apiUrl}/reviews/${id}`,
 };

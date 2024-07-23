@@ -90,7 +90,7 @@ export default function ReviewForm({
           {...register("comment", {
             required: "Comment is required.",
           })}
-          bg={editing ? "purple.700" : "white"}
+          bg={editing ? "lilac" : "white"}
           height={editing ? 50 : 100}
           borderRadius={10}
           placeholder="Add review"
@@ -131,14 +131,12 @@ export default function ReviewForm({
       </FormControl>
 
       <Button
-        height={editing ? 30 : 50}
         borderRadius={30}
-        width={85}
         marginTop={5}
         type="submit"
-        textColor="purple.900"
         disabled={isSubmitting}
-        bg={editing ? "purple.100" : "white"}
+        variant="secondary"
+        size={editing ? "sm" : "md"}
       >
         {isSubmitting ? "Submitting..." : editing ? "Save" : "Post"}
       </Button>

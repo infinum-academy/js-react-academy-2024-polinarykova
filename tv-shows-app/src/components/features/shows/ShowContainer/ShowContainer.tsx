@@ -45,10 +45,7 @@ export default function ShowContainer() {
       alignItems="center"
       width="100%"
     >
-      <Flex
-        width={{ base: "90%", md: "75%", lg: "60%" }}
-        flexDirection="column"
-      >
+      <Flex flexDirection="column">
         <ShowDetails
           id={data?.id ?? ""}
           title={data?.title ?? ""}

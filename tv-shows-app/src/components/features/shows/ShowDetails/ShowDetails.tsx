@@ -23,7 +23,7 @@ export default function ShowDetails({
       gap={5}
       overflow="hidden"
       marginY={5}
-      textColor="black"
+      textColor="purple"
     >
       <Image
         src={image_url}

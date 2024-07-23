@@ -31,6 +31,7 @@ export const RegisterForm = () => {
     onError: (message) => {
       setError(message.toString().split(":")[1]);
     },
+    throwOnError: false,
   });
   const onRegister = (data: ISignInFormInputs) => {
     if (data.password != data.password_confirmation) {
@@ -45,7 +46,7 @@ export const RegisterForm = () => {
       gap={10}
       alignItems="center"
       width="500px"
-      bg="purple.800"
+      bg="lightPurple"
       paddingY={10}
       paddingX={12}
       borderRadius={30}
@@ -87,9 +88,9 @@ export const RegisterForm = () => {
             placeholder="Enter password again"
           />
         </FormControl>
-        {error && <Text color="red.500">{error}</Text>}
+        {error && <Text color="error">{error}</Text>}
         <Button type="submit" marginTop={10}>
-          Sign Up
+          SIGN UP
         </Button>
         <Text>
           Already have an account?{" "}

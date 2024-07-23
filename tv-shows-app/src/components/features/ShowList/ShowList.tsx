@@ -14,6 +14,7 @@ export default function ShowList({ showList }: IShowListProps) {
       flexWrap="wrap"
       justifyContent="center"
       marginTop={5}
+      width="100%"
       data-testid="list"
     >
       {showList?.map((show, index) => {

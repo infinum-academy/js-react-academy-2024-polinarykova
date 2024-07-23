@@ -6,12 +6,11 @@ export default function Logo({ size }: { size: "small" | "large" }) {
     <Flex flexDirection="row">
       <PiTelevisionSimple size={size == "small" ? 30 : 50} />
       <Text
-        marginLeft={2}
+        paddingLeft={3}
         letterSpacing="wide"
-        fontSize={size == "small" ? "xl" : "4xl"}
-        fontWeight="bold"
-        color="purple.100"
+        textStyle={size == "small" ? "title.bold" : "headline"}
         textShadow="2px 2px 4px rgba(0, 0, 0, 0.5)"
+        margin="auto"
       >
         TV SHOWS APP
       </Text>

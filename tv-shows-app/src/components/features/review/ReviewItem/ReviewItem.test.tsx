@@ -1,7 +1,11 @@
-import { usePathname } from "next/navigation";
+import React from "react";
+import { render, screen } from "@testing-library/react";
 import ReviewItem from "./ReviewItem";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { DeleteReviewButton } from "../DeleteReviewButton/DeleteReviewButton";
+import useUserSWR from "@/hooks/useUserSWR";
+import { usePathname } from "next/navigation";
 
+// Mock data for the review item
 const mockReview = {
   id: 1,
   user: {
@@ -18,6 +22,20 @@ jest.mock("next/navigation", () => ({
   usePathname: jest.fn(),
 }));
 
+jest.mock("../DeleteReviewButton/DeleteReviewButton", () => ({
+  DeleteReviewButton: jest.fn(),
+}));
+
+jest.mock("@/hooks/useUserSWR", () => ({
+  __esModule: true,
+  default: jest.fn().mockReturnValue({
+    data: { user: { id: 1, email: "test@test.com", image_url: "" } },
+    isLoading: false,
+    error: null,
+    mutate: jest.fn(),
+  }),
+}));
+
 describe("ReviewItem", () => {
   it("should render user email", () => {
     render(<ReviewItem review={mockReview} />);
@@ -29,7 +47,7 @@ describe("ReviewItem", () => {
   it("should render correct rating", () => {
     render(<ReviewItem review={mockReview} />);
 
-    const rating = screen.getByText(mockReview.rating + " / 5");
+    const rating = screen.getByText(`${mockReview.rating} / 5`);
     expect(rating).toBeInTheDocument();
   });
 
@@ -43,12 +61,8 @@ describe("ReviewItem", () => {
   it("should render delete button", () => {
     (usePathname as jest.Mock).mockReturnValue(`/shows/${mockReview.show_id}`);
 
-    localStorage.setItem("headers", JSON.stringify({ uid: "test@test.com" }));
-
     render(<ReviewItem review={mockReview} />);
 
-    const deleteIcon = screen.getByTestId("delete-icon");
-
-    expect(deleteIcon).toBeInTheDocument();
+    expect(DeleteReviewButton).toHaveBeenCalled();
   });
 });

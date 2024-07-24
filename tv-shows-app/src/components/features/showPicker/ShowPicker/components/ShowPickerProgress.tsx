@@ -9,7 +9,7 @@ export default function ShowPickerProgress() {
     return null;
   }
 
-  const stepsNumber = Math.ceil(showList.shows.length / 4);
+  const stepsNumber = showList.shows.length - 1;
   const progress = (currentStep / stepsNumber) * 100;
 
   if (currentStep == stepsNumber) {

@@ -5,6 +5,39 @@ import { Flex, useBreakpointValue, Text, Image } from "@chakra-ui/react";
 export default function ShowPickerResults() {
   const { selectedShows } = useContext(ShowPickerContext);
 
+  const pickedShow = selectedShows[selectedShows.length - 1];
+
+  const ShowPickerCardComponent = useBreakpointValue({
+    md: (
+      <Flex
+        flexDirection="column"
+        gap={10}
+        bg="lilac"
+        padding={5}
+        borderRadius="modalRadius"
+      >
+        <Image src={pickedShow.image_url} height="300px"></Image>
+        <Text textStyle="title.bold" textAlign="center">
+          {pickedShow.title}
+        </Text>
+      </Flex>
+    ),
+    base: (
+      <Flex
+        width="200px"
+        justifyContent="center"
+        alignItems="center"
+        whiteSpace="normal"
+        textAlign="center"
+        color="lightPurple"
+        textStyle="title.bold"
+        padding={3}
+      >
+        {pickedShow.title}
+      </Flex>
+    ),
+  });
+
   return (
     <Flex flexDirection="column" gap={10} width="100%">
       <Text width="100%" textAlign="center" textStyle="subtitle.bold">
@@ -17,37 +50,7 @@ export default function ShowPickerResults() {
         flexWrap="wrap"
         gap={10}
       >
-        {selectedShows.map((show) => {
-          const ShowPickerCardComponent = useBreakpointValue({
-            md: (
-              <Flex
-                flexDirection="column"
-                gap={10}
-                bg="lilac"
-                padding={5}
-                borderRadius="modalRadius"
-              >
-                <Image src={show.image_url} height="300px"></Image>
-                <Text textStyle="title.bold" textAlign="center">
-                  {show.title}
-                </Text>
-              </Flex>
-            ),
-            base: (
-              <Flex
-                width="200px"
-                justifyContent="center"
-                alignItems="center"
-                whiteSpace="normal"
-                textAlign="center"
-                padding={3}
-              >
-                {show.title}
-              </Flex>
-            ),
-          });
-          return <>{ShowPickerCardComponent}</>;
-        })}
+        {ShowPickerCardComponent}
       </Flex>
     </Flex>
   );

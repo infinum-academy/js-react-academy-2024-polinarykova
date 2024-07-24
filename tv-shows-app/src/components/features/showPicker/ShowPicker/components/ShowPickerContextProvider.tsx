@@ -1,7 +1,7 @@
 import { fetcher } from "@/app/fetchers/fetcher";
 import { swrKeys } from "@/app/fetchers/swrKeys";
 import { IShow, IShowList } from "@/typings/show";
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import useSWR from "swr";
 
 interface IShowPickerContext {
@@ -10,6 +10,8 @@ interface IShowPickerContext {
   showList?: IShowList;
   selectedShows: Array<IShow>;
   setSelectedShows: (newShowList: Array<IShow>) => void;
+  error: string;
+  setError: (newError: string) => void;
 }
 
 export const ShowPickerContext = createContext<IShowPickerContext>(
@@ -29,6 +31,8 @@ export default function ShowPickerContextProvider({
     swrKeys.shows,
     fetcher<IShowList>
   );
+  const [error, setError] = useState<string>("");
+
   return (
     <ShowPickerContext.Provider
       value={{
@@ -37,6 +41,8 @@ export default function ShowPickerContextProvider({
         showList,
         selectedShows,
         setSelectedShows,
+        error,
+        setError,
       }}
     >
       {children}

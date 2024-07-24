@@ -10,7 +10,7 @@ export default function ShowPickerStepper() {
     return null;
   }
 
-  if (currentStep < Math.ceil(showList.shows.length / 4)) {
+  if (currentStep < showList.shows.length - 1) {
     return <ShowPickerStep />;
   } else {
     return <ShowPickerResults />;

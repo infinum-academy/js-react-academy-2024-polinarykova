@@ -32,7 +32,7 @@ export function DeleteReviewButton({
       ></DeleteIcon>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent color="purple">
           <ModalHeader>Are you sure?</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

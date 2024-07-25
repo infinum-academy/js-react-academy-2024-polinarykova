@@ -136,7 +136,10 @@ export default function ReviewForm({
         borderRadius={30}
         marginTop={5}
         type="submit"
+
         isLoading={isSubmitting}
+        disabled={isSubmitting}
+
         variant="secondary"
         size={editing ? "sm" : "md"}
       >

@@ -57,6 +57,7 @@ const Button = defineStyleConfig({
       color: "white",
       border: "2px solid lilac",
     },
+
   },
   defaultProps: {
     variant: "primary",

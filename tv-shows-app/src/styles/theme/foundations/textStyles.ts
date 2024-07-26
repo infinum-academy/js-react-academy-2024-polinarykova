@@ -7,12 +7,12 @@ export const textStyles = {
   title: {
     regular: {
       fontWeight: "normal",
-      fontSize: ["14px", "24px"],
+      fontSize: ["20px", "24px"],
       lineHeight: ["20px", "32px"],
     },
     bold: {
       fontWeight: "bold",
-      fontSize: ["14px", "24px"],
+      fontSize: ["20px", "24px"],
       lineHeight: ["20px", "32px"],
     },
   },

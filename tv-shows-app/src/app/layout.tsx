@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import SidebarNavigation from "@/components/shared/SidebarNavigation/SideBarNavigation";
 import { Flex } from "@chakra-ui/react";
 import { Providers } from "./providers";
 

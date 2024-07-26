@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { ShowPickerContext } from "./ShowPickerContextProvider";
 import { Button, Flex, useBreakpointValue, Text } from "@chakra-ui/react";
 import ShowPickerCard from "./ShowPickerCard";

@@ -85,24 +85,19 @@ export const RegisterForm = () => {
             {...register("password_confirmation")}
             data-testid="password_confirmation"
             name="password_confirmation"
-            placeholder="Enter password again"
+            placeholder="Repeat password"
           />
         </FormControl>
         {error && <Text color="error">{error}</Text>}
         <Button type="submit" marginTop={10}>
           SIGN UP
         </Button>
-        <Text>
-          Already have an account?{" "}
-          <Text
-            as={NextLink}
-            href={"/login"}
-            textDecoration="underline"
-            marginTop={3}
-          >
+        <Flex flexDirection="column" textAlign="center" marginTop={5}>
+          <Text>Already have an account?</Text>
+          <Text as={NextLink} href={"/login"} textDecoration="underline">
             Sign in
           </Text>
-        </Text>
+        </Flex>
       </chakra.form>
     </Flex>
   );

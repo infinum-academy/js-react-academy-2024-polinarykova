@@ -67,9 +67,10 @@ export default function ReviewItem({ review }: IReviewProps) {
       <Flex
         bg="lightPurple"
         height="fit-content"
-        padding={{ base: 1, md: 7 }}
+        padding={{ base: 3, md: 7 }}
         borderRadius={15}
         flexDirection="column"
+        textStyle="subtitle.regular"
       >
         <Flex gap={{ base: 2, md: 30 }} flexWrap="wrap">
           <Image
@@ -78,8 +79,10 @@ export default function ReviewItem({ review }: IReviewProps) {
             borderRadius="full"
             boxSize={{ base: 50, md: 65 }}
           ></Image>
-          <Flex flexDirection="column" textStyle="subtitle.regular">
-            <Text width="auto">{review.user.email}</Text>
+          <Flex flexDirection="column">
+            <Text width="auto" wordBreak="break-word" overflowWrap="break-word">
+              {review.user.email}
+            </Text>
             {!editing && (
               <Flex flexDirection="row" gap={{ base: 0, md: 1 }}>
                 <Text marginY={3}>{review.rating} / 5</Text>
@@ -114,7 +117,7 @@ export default function ReviewItem({ review }: IReviewProps) {
           )}
         </Flex>
         {!editing && (
-          <Text marginX={{ base: "55px", md: 95 }} marginTop={5}>
+          <Text marginX={{ base: "55px", md: 95 }} marginY={5}>
             {review.comment}
           </Text>
         )}

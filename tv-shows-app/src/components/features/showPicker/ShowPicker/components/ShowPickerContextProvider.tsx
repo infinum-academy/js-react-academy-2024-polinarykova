@@ -1,7 +1,7 @@
 import { fetcher } from "@/app/fetchers/fetcher";
 import { swrKeys } from "@/app/fetchers/swrKeys";
 import { IShow, IShowList } from "@/typings/show";
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useState } from "react";
 import useSWR from "swr";
 
 interface IShowPickerContext {

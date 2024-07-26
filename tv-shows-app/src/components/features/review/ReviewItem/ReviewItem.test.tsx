@@ -2,10 +2,8 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import ReviewItem from "./ReviewItem";
 import { DeleteReviewButton } from "../DeleteReviewButton/DeleteReviewButton";
-import useUserSWR from "@/hooks/useUserSWR";
 import { usePathname } from "next/navigation";
 
-// Mock data for the review item
 const mockReview = {
   id: 1,
   user: {

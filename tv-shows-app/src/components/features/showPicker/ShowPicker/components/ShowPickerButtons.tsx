@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ShowPickerContext } from "./ShowPickerContextProvider";
 import { Button, Flex, ModalCloseButton, Text } from "@chakra-ui/react";
 

@@ -1,9 +1,6 @@
 "use client";
 import { IShow } from "../../../../typings/show";
-import { Image } from "@chakra-ui/react";
-import { Heading } from "@chakra-ui/react";
-import { Flex } from "@chakra-ui/react";
-import { Text } from "@chakra-ui/react";
+import { Image, Heading, Flex, Text } from "@chakra-ui/react";
 
 export default function ShowDetails({
   id,
@@ -16,6 +13,7 @@ export default function ShowDetails({
     <Flex
       flexDirection="column"
       width="100%"
+      maxWidth="100%"
       borderRadius="15px"
       bg="white"
       height="fit-content"

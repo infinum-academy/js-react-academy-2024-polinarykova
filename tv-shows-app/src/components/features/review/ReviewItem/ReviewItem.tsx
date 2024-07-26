@@ -67,33 +67,36 @@ export default function ReviewItem({ review }: IReviewProps) {
       <Flex
         bg="lightPurple"
         height="fit-content"
-        padding={7}
+        padding={{ base: 1, md: 7 }}
         borderRadius={15}
         flexDirection="column"
       >
-        <Flex gap={30}>
+        <Flex gap={{ base: 2, md: 30 }} flexWrap="wrap">
           <Image
             src={review.user.image_url}
             fallbackSrc="/assets/avatar_default.png"
             borderRadius="full"
-            boxSize={65}
+            boxSize={{ base: 50, md: 65 }}
           ></Image>
-          <Flex flexDirection="column">
-            <Text>{review.user.email}</Text>
+          <Flex flexDirection="column" textStyle="subtitle.regular">
+            <Text width="auto">{review.user.email}</Text>
             {!editing && (
-              <Flex flexDirection="row" gap={1}>
+              <Flex flexDirection="row" gap={{ base: 0, md: 1 }}>
                 <Text marginY={3}>{review.rating} / 5</Text>
                 <RatingStars
                   label={""}
                   value={review.rating}
                   hovered={0}
                   size="20px"
-                ></RatingStars>
+                />
               </Flex>
             )}
           </Flex>
           {isFromCurrentUser && (
-            <Flex gap={3} marginLeft="auto" marginTop={-10}>
+            <Flex
+              gap={{ base: 2, md: 3 }}
+              marginLeft={{ base: "55px", md: "auto" }}
+            >
               {!editing && (
                 <EditIcon
                   boxSize="20px"
@@ -111,7 +114,7 @@ export default function ReviewItem({ review }: IReviewProps) {
           )}
         </Flex>
         {!editing && (
-          <Text marginX={95} marginTop={5}>
+          <Text marginX={{ base: "55px", md: 95 }} marginTop={5}>
             {review.comment}
           </Text>
         )}

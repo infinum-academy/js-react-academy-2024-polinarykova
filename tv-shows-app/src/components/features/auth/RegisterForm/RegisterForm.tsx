@@ -6,6 +6,7 @@ import {
   FormLabel,
   Input,
   Text,
+  Image,
   chakra,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
@@ -14,7 +15,6 @@ import { postMutator } from "@/app/fetchers/mutators";
 import { useState } from "react";
 import { swrKeys } from "@/app/fetchers/swrKeys";
 import NextLink from "next/link";
-import Logo from "@/components/shared/Logo/Logo";
 import { PasswordInput } from "@/components/shared/PasswordInput/PasswordInput";
 import { ISignInFormInputs } from "@/typings/input";
 import { useRouter } from "next/navigation";
@@ -52,7 +52,7 @@ export const RegisterForm = () => {
       borderRadius={30}
       margin="auto"
     >
-      <Logo size="large" />
+      <Image src="/assets/Logo.svg" />
       <chakra.form
         width="100%"
         display="flex"

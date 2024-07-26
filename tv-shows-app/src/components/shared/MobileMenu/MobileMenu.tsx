@@ -29,6 +29,7 @@ export default function HamburgerMenu() {
             bg="purple"
             borderTopLeftRadius="modalRadius"
             paddingTop={10}
+            onClick={onClose}
           >
             <NavigationContent />
           </DrawerBody>

@@ -48,7 +48,11 @@ export default function ShowPickerStep() {
 
   return (
     <Flex flexDirection="column" width="100%" gap={10}>
-      <Text textAlign="center" textStyle="body.bold" marginY={5}>
+      <Text
+        textAlign="center"
+        textStyle={{ base: "title.bold", md: "body.bold" }}
+        marginY={5}
+      >
         Pick the show you like better:
       </Text>
       <Flex
@@ -70,6 +74,7 @@ export default function ShowPickerStep() {
             base: (
               <Flex
                 width="200px"
+                height="100px"
                 justifyContent="center"
                 alignItems="center"
                 whiteSpace="normal"
@@ -87,19 +92,17 @@ export default function ShowPickerStep() {
               key={show.id}
               variant={selected ? "selected" : "outline"}
               bg={selected ? "lightPurple" : "white"}
-              borderWidth="2px"
-              borderStyle="solid"
-              borderColor="lilac"
               onClick={
                 selected ? () => handleUnselect() : () => handleSelect(show)
               }
+              boxShadow="10px 10px 10px rgba(0,0,0,0.3)"
             >
               {ShowPickerCardComponent}
             </Button>
           );
         })}
       </Flex>
-      <Text color="error" textAlign="center">
+      <Text color="error" textAlign="center" marginTop={-3}>
         {error}
       </Text>
     </Flex>

@@ -34,7 +34,7 @@ export default function ShowPicker() {
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
 
-        <ModalContent gap={10}>
+        <ModalContent gap={10} position="fixed" overflow="visible">
           <ModalBody>
             <Flex marginTop={10} width="100%" gap={30} color="purple">
               <ModalCloseButton cursor="pointer" />
@@ -42,7 +42,14 @@ export default function ShowPicker() {
             </Flex>
           </ModalBody>
           <ModalFooter>
-            <Flex direction="column" width="100%" gap={10}>
+            <Flex
+              direction="column"
+              width="100%"
+              gap={5}
+              color="purple"
+              marginX={{ base: "0px", md: "40px" }}
+              marginBottom={5}
+            >
               <ShowPickerProgress />
               <ShowPickerButtons />
             </Flex>

@@ -43,7 +43,7 @@ export default function ShowPickerButtons() {
 
   if (currentStep == stepsNumber) {
     return (
-      <Flex flexDirection="row" width="100%" justifyContent="space-evenly">
+      <Flex flexDirection="row" width="100%" justifyContent="space-around">
         <Button
           onClick={() => {
             setCurrentStep(0);
@@ -69,7 +69,7 @@ export default function ShowPickerButtons() {
     <>
       <Text color="error" textAlign="center"></Text>
 
-      <Flex width="100%" justifyContent="space-between">
+      <Flex width="100%" justifyContent="space-between" gap={2}>
         <Button
           variant={currentStep == 0 ? "disabled" : "secondary"}
           onClick={handlePrevious}

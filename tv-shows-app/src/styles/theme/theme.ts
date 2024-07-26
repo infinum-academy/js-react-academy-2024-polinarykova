@@ -10,6 +10,7 @@ const colors = {
   purple: "#1B004C",
   error: "#FF2498",
   white: "#FFFFFF",
+  progress_purple: { 500: "#1B004C" },
 };
 
 const fonts = {

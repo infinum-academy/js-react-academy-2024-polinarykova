@@ -85,10 +85,8 @@ export default function ReviewItem({ review }: IReviewProps) {
                 <Text marginY={3}>{review.rating} / 5</Text>
                 <RatingStars
                   label={""}
-                  value={{
-                    selected: review.rating,
-                    hovered: 0,
-                  }}
+                  value={review.rating}
+                  hovered={0}
                   size="20px"
                 ></RatingStars>
               </Flex>

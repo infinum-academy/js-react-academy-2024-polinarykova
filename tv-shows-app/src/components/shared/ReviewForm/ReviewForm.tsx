@@ -2,7 +2,6 @@
 import { IReviewFormInputs } from "@/typings/review";
 import {
   Button,
-  Input,
   Textarea,
   chakra,
   FormControl,
@@ -10,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import RatingStars from "../RatingStars/RatingStars";
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import useId from "@/hooks/useId";
 
 interface IReviewFormProps {
@@ -33,6 +32,7 @@ export default function ReviewForm({
 
   const {
     register,
+    control,
     handleSubmit,
     setValue,
     clearErrors,
@@ -59,7 +59,7 @@ export default function ReviewForm({
     setValue("rating", 0);
   }
 
-  function onChange(clicked: boolean, index: number) {
+  function handleStarChange(clicked: boolean, index: number) {
     if (clicked) {
       setSelectedStars(index);
       clearErrors("rating");
@@ -72,9 +72,11 @@ export default function ReviewForm({
     onAdd(data);
   }
 
-  useEffect(() => setValue("comment", initialComment || ""), []);
+  useEffect(() => {
+    setValue("comment", initialComment || "");
+  }, []);
 
-  function handleChange(event: any) {
+  function handleCommentChange(event: any) {
     const value = event.target.value;
     setValue("comment", value);
   }
@@ -99,32 +101,32 @@ export default function ReviewForm({
           marginBottom={5}
           textColor={editing ? "white" : "black"}
           disabled={isSubmitting}
-          onChange={handleChange}
+          onChange={handleCommentChange}
         />
         <FormErrorMessage marginBottom={3} marginTop={-2}>
           {errors.comment && errors.comment.message}
         </FormErrorMessage>
       </FormControl>
 
-      <RatingStars
-        data-testid="rating"
-        label="Rating: "
-        onChange={isSubmitting ? undefined : onChange}
-        value={{
-          selected: selectedStars,
-          hovered: hoveredStars,
-        }}
-        size={editing ? "20px" : "30px"}
-      />
-
       <FormControl isInvalid={!!errors.rating}>
-        <Input
-          {...register("rating", {
+        <Controller
+          control={control}
+          name="rating"
+          rules={{
             validate: (value) => value !== 0 || "Rating is required",
-          })}
-          type="hidden"
-          value={selectedStars}
+          }}
+          render={() => (
+            <RatingStars
+              data-testid="rating"
+              label="Rating: "
+              onChange={isSubmitting ? undefined : handleStarChange}
+              value={selectedStars}
+              hovered={hoveredStars}
+              size={editing ? "20px" : "30px"}
+            />
+          )}
         />
+
         <FormErrorMessage marginBottom={3}>
           {errors.rating && errors.rating.message}
         </FormErrorMessage>
@@ -134,7 +136,10 @@ export default function ReviewForm({
         borderRadius={30}
         marginTop={5}
         type="submit"
+
+        isLoading={isSubmitting}
         disabled={isSubmitting}
+
         variant="secondary"
         size={editing ? "sm" : "md"}
       >

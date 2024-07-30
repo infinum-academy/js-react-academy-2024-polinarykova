@@ -47,7 +47,7 @@ export default function ShowPicker() {
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
 
-        <ModalContent gap={10} position="fixed" overflow="visible">
+        <ModalContent gap={10}>
           <ModalBody>
             <Flex marginTop={10} width="100%" gap={30} color="purple">
               <ModalCloseButton cursor="pointer" />

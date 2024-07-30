@@ -72,17 +72,14 @@ export default function ShowPickerStep() {
           const ShowPickerCardComponent = useBreakpointValue({
             md: <ShowPickerCard show={show} />,
             base: (
-              <Flex
-                width="200px"
-                height="100px"
-                justifyContent="center"
-                alignItems="center"
+              <Text
+                margin="auto"
+                wordBreak="break-word"
                 whiteSpace="normal"
-                textAlign="center"
                 padding={3}
               >
                 {show.title}
-              </Flex>
+              </Text>
             ),
           });
 

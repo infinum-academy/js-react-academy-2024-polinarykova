@@ -67,8 +67,6 @@ export default function ShowPickerButtons() {
 
   return (
     <>
-      <Text color="error" textAlign="center"></Text>
-
       <Flex width="100%" justifyContent="space-between" gap={2}>
         <Button
           variant={currentStep == 0 ? "disabled" : "secondary"}

@@ -45,18 +45,18 @@ export default function ReviewForm({
     setValue("rating", selectedStars);
   }, [selectedStars]);
 
-  function onSubmit(data: IReviewFormInputs) {
+  async function onSubmit(data: IReviewFormInputs) {
     const dataToSubmit: IReviewFormInputs = {
       show_id: id || "",
       comment: data.comment,
       rating: data.rating,
     };
 
-    onAdd(dataToSubmit);
-
     setSelectedStars(0);
     setValue("comment", "");
     setValue("rating", 0);
+
+    await onAdd(dataToSubmit);
   }
 
   function handleStarChange(clicked: boolean, index: number) {
@@ -68,8 +68,8 @@ export default function ReviewForm({
     }
   }
 
-  function onEditingSubmit(data: IReviewFormInputs) {
-    onAdd(data);
+  async function onEditingSubmit(data: IReviewFormInputs) {
+    await onAdd(data);
   }
 
   useEffect(() => {
@@ -87,7 +87,7 @@ export default function ReviewForm({
         editing ? handleSubmit(onEditingSubmit) : handleSubmit(onSubmit)
       }
     >
-      <FormControl isInvalid={!!errors.comment}>
+      <FormControl isInvalid={!!errors.comment} isDisabled={isSubmitting}>
         <Textarea
           {...register("comment", {
             required: "Comment is required.",
@@ -136,10 +136,8 @@ export default function ReviewForm({
         borderRadius={30}
         marginTop={5}
         type="submit"
-
         isLoading={isSubmitting}
         disabled={isSubmitting}
-
         variant="secondary"
         size={editing ? "sm" : "md"}
       >

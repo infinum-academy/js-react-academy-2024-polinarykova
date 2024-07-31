@@ -20,8 +20,8 @@ export function useHandleReviews(id: string) {
     }
   );
 
-  function onAdd(data: IReviewFormInputs) {
-    triggerAddReview(data);
+  async function onAdd(data: IReviewFormInputs) {
+    await triggerAddReview(data);
   }
 
   return {

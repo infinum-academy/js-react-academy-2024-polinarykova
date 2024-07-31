@@ -11,6 +11,7 @@ import {
   Button,
   Text,
 } from "@chakra-ui/react";
+import { useState } from "react";
 
 interface ITodoListDeleteButtonProps {
   handleDelete: () => void;
@@ -20,6 +21,7 @@ export function DeleteReviewButton({
   handleDelete,
 }: ITodoListDeleteButtonProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [disabled, setDisabled] = useState(false);
 
   return (
     <>
@@ -39,10 +41,23 @@ export function DeleteReviewButton({
             <Text>Delete your review</Text>
           </ModalBody>
           <ModalFooter>
-            <Button size="sm" mr={3} onClick={onClose}>
+            <Button
+              size="sm"
+              mr={3}
+              onClick={() => {
+                disabled ? undefined : onClose;
+              }}
+            >
               No
             </Button>
-            <Button variant="secondary" size="sm" onClick={handleDelete}>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => {
+                setDisabled(true);
+                handleDelete();
+              }}
+            >
               Yes
             </Button>
           </ModalFooter>

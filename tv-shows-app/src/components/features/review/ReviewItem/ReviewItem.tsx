@@ -29,7 +29,7 @@ export default function ReviewItem({ review }: IReviewProps) {
     setEditing(false);
   }
 
-  const { trigger: triggerDeleteReview } = useSWRMutation(
+  const { trigger: triggerDeleteReview, isMutating } = useSWRMutation(
     `${swrKeys.review(review.id)}`,
     deleteAuthorizedMutator,
     {
@@ -112,6 +112,7 @@ export default function ReviewItem({ review }: IReviewProps) {
               )}
               <DeleteReviewButton
                 handleDelete={() => onDelete(Number(show_id))}
+                isDisabled={isMutating}
               />
             </Flex>
           )}

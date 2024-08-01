@@ -18,18 +18,31 @@ export default function ShowPicker() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex
-      height="100%"
+      height="fit-content"
+      marginBottom={20}
       width="100%"
       justifyContent="center"
       alignItems="center"
       flexDirection="column"
+      textAlign="center"
     >
-      <Text textStyle="title.bold" marginBottom={10}>
-        Don't know what to watch tonight?
-      </Text>
-      <Button onClick={onOpen} height="50px" width="200px">
-        Help me pick a show!
-      </Button>
+      <Flex
+        width="fit-content"
+        height="fit-content"
+        padding={10}
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        bg="lightPurple"
+        borderRadius="modalRadius"
+      >
+        <Text textStyle="title.bold" marginBottom={10}>
+          Don't know what to watch tonight?
+        </Text>
+        <Button onClick={onOpen} height="50px" width="200px">
+          Help me pick a show!
+        </Button>
+      </Flex>
 
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
@@ -42,7 +55,14 @@ export default function ShowPicker() {
             </Flex>
           </ModalBody>
           <ModalFooter>
-            <Flex direction="column" width="100%" gap={10}>
+            <Flex
+              direction="column"
+              width="100%"
+              gap={5}
+              color="purple"
+              marginX={{ base: "0px", md: "40px" }}
+              marginBottom={5}
+            >
               <ShowPickerProgress />
               <ShowPickerButtons />
             </Flex>

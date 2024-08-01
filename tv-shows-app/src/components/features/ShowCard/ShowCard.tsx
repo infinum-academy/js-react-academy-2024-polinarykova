@@ -25,18 +25,16 @@ export default function ShowCard({
         as={Image}
         src={imageUrl}
         fallbackSrc="https://fakeimg.pl/600x400"
-      ></CardBody>
+      />
       <CardFooter>
-        <Text textStyle="subtitle.bold" marginBlock="auto">
-          {title}
-        </Text>
+        <Text>{title}</Text>
         <Flex
           flexDirection="row"
           alignItems="center"
-          gap={3}
-          textStyle="smallCaption.regular"
+          gap={2}
+          minWidth="fit-content"
         >
-          <StarIcon></StarIcon>
+          <StarIcon />
           <Text>{avgRating.toFixed(2)} / 5</Text>
         </Flex>
       </CardFooter>

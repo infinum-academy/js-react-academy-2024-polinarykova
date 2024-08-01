@@ -1,9 +1,5 @@
 import { fetcher } from "@/app/fetchers/fetcher";
-import {
-  deleteAuthorizedMutator,
-  patchMutator,
-  postAuthorizedMutator,
-} from "@/app/fetchers/mutators";
+import { postAuthorizedMutator } from "@/app/fetchers/mutators";
 import { swrKeys } from "@/app/fetchers/swrKeys";
 import { IReviewFormInputs, IReviewList } from "@/typings/review";
 import useSWR from "swr";
@@ -24,8 +20,8 @@ export function useHandleReviews(id: string) {
     }
   );
 
-  function onAdd(data: IReviewFormInputs) {
-    triggerAddReview(data);
+  async function onAdd(data: IReviewFormInputs) {
+    await triggerAddReview(data);
   }
 
   return {

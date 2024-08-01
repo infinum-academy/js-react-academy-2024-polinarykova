@@ -4,7 +4,7 @@ import { render, screen } from "@testing-library/react";
 describe("ReviewForm", () => {
   it("should render input, rating and button components", () => {
     const mockOnAdd = jest.fn();
-    render(<ReviewForm onAdd={mockOnAdd} />);
+    render(<ReviewForm onAdd={mockOnAdd} editing={false} />);
 
     const button = screen.getByRole("button");
     const input = screen.getByRole("textbox");

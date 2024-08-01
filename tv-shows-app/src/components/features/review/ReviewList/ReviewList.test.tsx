@@ -1,4 +1,3 @@
-import ShowList from "@/components/features/ShowList/ShowList";
 import { IReviewList } from "@/typings/review";
 import { render } from "@testing-library/react";
 import ReviewList from "./ReviewList";

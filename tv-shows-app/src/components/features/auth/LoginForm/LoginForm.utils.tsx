@@ -11,7 +11,7 @@ export const useLogin = () => {
   const [error, setError] = useState("");
   const router = useRouter();
   const { register, handleSubmit } = useForm<ISignInFormInputs>();
-  const { trigger } = useSWRMutation(swrKeys.sign_in, postMutator, {
+  const { trigger, data } = useSWRMutation(swrKeys.sign_in, postMutator, {
     onSuccess: () => {
       setError("");
       router.push("/shows");

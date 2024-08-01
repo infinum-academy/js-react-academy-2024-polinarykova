@@ -10,14 +10,16 @@ import {
   ModalFooter,
   Button,
   Text,
+  ButtonProps,
 } from "@chakra-ui/react";
 
-interface ITodoListDeleteButtonProps {
+interface ITodoListDeleteButtonProps extends ButtonProps {
   handleDelete: () => void;
 }
 
 export function DeleteReviewButton({
   handleDelete,
+  isDisabled,
 }: ITodoListDeleteButtonProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -39,10 +41,15 @@ export function DeleteReviewButton({
             <Text>Delete your review</Text>
           </ModalBody>
           <ModalFooter>
-            <Button size="sm" mr={3} onClick={onClose}>
+            <Button size="sm" mr={3} onClick={onClose} isDisabled={isDisabled}>
               No
             </Button>
-            <Button variant="secondary" size="sm" onClick={handleDelete}>
+            <Button
+              variant={isDisabled ? "disabled" : "secondary"}
+              size="sm"
+              onClick={handleDelete}
+              isDisabled={isDisabled}
+            >
               Yes
             </Button>
           </ModalFooter>

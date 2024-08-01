@@ -6,8 +6,6 @@ import {
   DrawerCloseButton,
   DrawerBody,
   useDisclosure,
-  IconButton,
-  Box,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import NavigationContent from "../NavigationContent/NavigationContent";
@@ -31,6 +29,7 @@ export default function HamburgerMenu() {
             bg="purple"
             borderTopLeftRadius="modalRadius"
             paddingTop={10}
+            onClick={onClose}
           >
             <NavigationContent />
           </DrawerBody>

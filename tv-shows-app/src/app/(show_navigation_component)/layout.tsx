@@ -16,7 +16,8 @@ export default function LoggedLayout({
     <Flex direction={{ base: "column", md: "row" }} width="100%">
       {navigationComponent}
       <Flex
-        marginLeft={{ base: "0", md: "300px" }}
+        marginLeft={{ base: "0", md: "350px" }}
+        marginTop={{ base: "30px", md: "0px" }}
         width="100%"
         height="100%"
         padding={10}

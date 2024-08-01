@@ -18,16 +18,19 @@ export default function RatingStars({
 }: IStarRatingProps) {
   return (
     <Flex flexDirection="row" gap={2} alignItems="center">
-      <Text textStyle="body.regular" marginRight={2}>
+      <Text
+        textStyle={{ base: "smallCaption.regular", md: "body.regular" }}
+        marginRight={2}
+      >
         {label}
       </Text>
       {[...Array(5)].map((_, index) => {
         return (
           <StarIcon
             key={index}
-            boxSize={size}
+            boxSize={{ base: "15px", md: size }}
             cursor={onChange ? "pointer" : "auto"}
-            color={value > index || hovered > index ? "gold" : "white"}
+            color={value > index || hovered > index ? "lightLilac" : "white"}
             onClick={() => onChange && onChange(true, index + 1)}
             onMouseOver={() => onChange && onChange(false, index + 1)}
             onMouseOut={() => onChange && onChange(false, 0)}

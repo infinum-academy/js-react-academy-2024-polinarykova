@@ -6,6 +6,7 @@ import {
   FormLabel,
   Input,
   Text,
+  Image,
   chakra,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
@@ -14,7 +15,6 @@ import { postMutator } from "@/app/fetchers/mutators";
 import { useState } from "react";
 import { swrKeys } from "@/app/fetchers/swrKeys";
 import NextLink from "next/link";
-import Logo from "@/components/shared/Logo/Logo";
 import { PasswordInput } from "@/components/shared/PasswordInput/PasswordInput";
 import { ISignInFormInputs } from "@/typings/input";
 import { useRouter } from "next/navigation";
@@ -52,7 +52,7 @@ export const RegisterForm = () => {
       borderRadius={30}
       margin="auto"
     >
-      <Logo size="large" />
+      <Image src="/assets/Logo.svg" />
       <chakra.form
         width="100%"
         display="flex"
@@ -85,24 +85,19 @@ export const RegisterForm = () => {
             {...register("password_confirmation")}
             data-testid="password_confirmation"
             name="password_confirmation"
-            placeholder="Enter password again"
+            placeholder="Repeat password"
           />
         </FormControl>
         {error && <Text color="error">{error}</Text>}
         <Button type="submit" marginTop={10}>
           SIGN UP
         </Button>
-        <Text>
-          Already have an account?{" "}
-          <Text
-            as={NextLink}
-            href={"/login"}
-            textDecoration="underline"
-            marginTop={3}
-          >
+        <Flex flexDirection="column" textAlign="center" marginTop={5}>
+          <Text>Already have an account?</Text>
+          <Text as={NextLink} href={"/login"} textDecoration="underline">
             Sign in
           </Text>
-        </Text>
+        </Flex>
       </chakra.form>
     </Flex>
   );

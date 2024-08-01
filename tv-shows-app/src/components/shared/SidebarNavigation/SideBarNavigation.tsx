@@ -1,6 +1,6 @@
 "use client";
-import { Container, Flex, Text } from "@chakra-ui/react";
-import Logo from "../Logo/Logo";
+import { Flex, Image } from "@chakra-ui/react";
+
 import NavigationContent from "../NavigationContent/NavigationContent";
 
 export default function SidebarNavigation() {
@@ -8,7 +8,7 @@ export default function SidebarNavigation() {
     <Flex
       minHeight="100vh"
       height="100%"
-      width="300px"
+      width="350px"
       flexDirection="column"
       padding={10}
       gap={3}
@@ -17,7 +17,7 @@ export default function SidebarNavigation() {
       boxShadow="10px 0px 10px rgba(0, 0, 0, 0.3)"
     >
       <Flex marginLeft={-5} marginTop={-5} marginBottom={5}>
-        <Logo size="small" />
+        <Image src="/assets/Logo.svg" />
       </Flex>
       <NavigationContent />
     </Flex>

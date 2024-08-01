@@ -6,10 +6,10 @@ import {
   FormLabel,
   Input,
   Text,
+  Image,
   chakra,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import Logo from "@/components/shared/Logo/Logo";
 import { PasswordInput } from "@/components/shared/PasswordInput/PasswordInput";
 import { useLogin } from "./LoginForm.utils";
 
@@ -27,7 +27,7 @@ export function LoginForm() {
       borderRadius={30}
       margin="auto"
     >
-      <Logo size="large" />
+      <Image src="/assets/Logo.svg" />
       <chakra.form
         width="100%"
         display="flex"
@@ -56,17 +56,12 @@ export function LoginForm() {
         <Button type="submit" marginTop={10}>
           LOG IN
         </Button>
-        <Text>
-          Don't have an account yet?{" "}
-          <Text
-            as={NextLink}
-            href={"/register"}
-            textDecoration="underline"
-            marginTop={3}
-          >
+        <Flex flexDirection="column" textAlign="center" marginTop={5}>
+          <Text>Don't have an account?</Text>
+          <Text as={NextLink} href={"/register"} textDecoration="underline">
             Register
           </Text>
-        </Text>
+        </Flex>
       </chakra.form>
     </Flex>
   );

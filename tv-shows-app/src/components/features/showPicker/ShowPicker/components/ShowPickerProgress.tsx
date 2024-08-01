@@ -16,5 +16,15 @@ export default function ShowPickerProgress() {
     return null;
   }
 
-  return <Progress value={progress} />;
+  return (
+    <Progress
+      bgColor="white"
+      borderWidth="2px"
+      borderRadius="modalRadius"
+      marginX={2}
+      borderColor="purple"
+      colorScheme="progress_purple"
+      value={progress}
+    />
+  );
 }
